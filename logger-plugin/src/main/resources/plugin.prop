@@ -1,0 +1,4 @@
+Name = Basic Event Logger
+Type = Debug
+PackageName = logger
+MainClassName = Logger
