@@ -9,7 +9,7 @@ public class App {
 		pluginMgr.addPath((new File("./plugins")).getCanonicalPath());
 		//~ Plugin core = (Plugin)pluginMgr.getPlugin("Core");
 		//~ core.run();
-		System.out.println("getPlugin");
+		//~ System.out.println("getPlugin");
 		Plugin core = (Plugin)pluginMgr.getPlugin("Debug");
 		core.run();
 	}

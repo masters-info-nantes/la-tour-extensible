@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>latourextensible.platform</groupId>
 	<artifactId>Platform</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>Platform</name>
 	<url>http://maven.apache.org</url>
