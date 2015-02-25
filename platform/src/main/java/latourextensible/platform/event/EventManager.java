@@ -1,5 +1,6 @@
-package latourextensible.platform;
+package latourextensible.platform.event;
 
+import java.lang.String;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,7 +12,9 @@ import java.util.HashMap;
  * Note: "listener" is an object instantiate from class which implement the {@see latourextensible.platform.IEventListener} interface.
  */
 public class EventManager {
-
+	
+	public static final String EVENT_ALL_BROADCAST = "latourextensible.platform.event.ALL_BROADCAST";
+	public static final String EXTRA_BROADCAST_EVENT_NAME = "latourextensible.platform.extra.BROADCAST_EVENT_NAME";
 	private static EventManager instance = null;
 	private HashMap<String,ArrayList<IEventListener>> listeners;
 
@@ -58,6 +61,11 @@ public class EventManager {
 			for(IEventListener r : recipients) {
 				send(r,e);
 			}
+		}
+		if(!e.getAction().equals(EventManager.EVENT_ALL_BROADCAST)) {
+			e.addExtra(EventManager.EXTRA_BROADCAST_EVENT_NAME,e.getAction());
+			e.setAction(EventManager.EVENT_ALL_BROADCAST);
+			broadcast(e);
 		}
 	}
 

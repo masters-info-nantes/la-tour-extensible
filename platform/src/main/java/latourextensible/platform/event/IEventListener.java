@@ -1,4 +1,4 @@
-package latourextensible.platform;
+package latourextensible.platform.event;
 
 /** Interface that must be implement by all classes wanted to receive {@see latourextensible.platform.Event}
  */

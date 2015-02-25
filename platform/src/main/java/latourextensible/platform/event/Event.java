@@ -1,4 +1,4 @@
-package latourextensible.platform;
+package latourextensible.platform.event;
 
 import java.lang.*;
 import java.util.HashMap;
