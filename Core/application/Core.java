@@ -1,3 +1,6 @@
+package application;
+import interfaces.Personnage;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
