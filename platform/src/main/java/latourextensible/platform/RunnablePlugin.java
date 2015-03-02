@@ -1,5 +1,5 @@
 package latourextensible.platform;
 
-public abstract class Plugin {
+public abstract class RunnablePlugin {
 	public abstract void run();
 }

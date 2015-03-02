@@ -39,24 +39,22 @@ public class PluginManager extends URLClassLoader {
 	}
 
 
-	public Object getPlugin(String pluginType) throws Exception {
+	public RunnablePlugin getPluginInstance(String pluginType) throws Exception {
 		// TODO exception when not finded plugin
 		PluginProperty pluginProp = getPluginPropertyForType(pluginType);
 
-		//~ Class<?> cl = Class.forName(pluginProp.getPackageName()+"."+pluginProp.getName(),false, pluginProp.getClassLoader());
-		//~ System.out.println("Class.forName(\""+pluginProp.getPackageName()+"."+pluginProp.getMainClassName()+"\")");
-//~
-		//~ for(URL u : this.getURLs()) {
-			//~ System.out.println("dispo = "+u.toString());
-		//~ }
-
-		//~ Class<?> cl = Class.forName(pluginProp.getPackageName()+"."+pluginProp.getMainClassName(),false, this);
 		Class<?> cl = Class.forName(pluginProp.getPackageName()+"."+pluginProp.getMainClassName(),false, this);
-
-		return cl.newInstance();
+		// TODO correct "false" with isAssignableFrom
+		System.out.println("cl.isAssignableFrom(RunnablePlugin.class) = >"+(cl.isAssignableFrom(RunnablePlugin.class))+"<");
+		//~ if(cl.isAssignableFrom(RunnablePlugin.class)) {
+			return (RunnablePlugin)cl.newInstance();
+		//~ } else {
+			//~ return null;
+		//~ }
 	}
 
-	public void addPath(String path) throws PathAlreadyExistingException, Exception {
+	public void addPath(String jarPath) throws PathAlreadyExistingException, Exception {
+		String path = (new File(jarPath)).getCanonicalPath();
 		if(this.plugins.keySet().contains(path)) {
 			throw new PathAlreadyExistingException();
 		}
@@ -77,11 +75,53 @@ public class PluginManager extends URLClassLoader {
 			props.load(fileStream);
 
 			cur = new PluginProperty();// TODO ensure property is set
-			cur.setName((String)props.get("Name"));
-			cur.setType((String)props.get("Type"));
-			cur.setPackageName((String)props.get("PackageName"));
-			cur.setMainClassName((String)props.get("MainClassName"));
-
+			Object prop;
+			prop = props.get("Name");
+			if(prop != null) {
+				cur.setName((String)prop);
+			} else {
+				throw new InvalidPluginPropertiesException("\"Name\" property is needed");
+			}
+			prop = props.get("PackageName");
+			if(prop != null) {
+				cur.setPackageName((String)prop);
+			} else {
+				throw new InvalidPluginPropertiesException("\"PackageName\" property is needed");
+			}
+			prop = props.get("Type");
+			if(prop != null) {
+				cur.setType((String)prop);
+			} else {
+				throw new InvalidPluginPropertiesException("\"Type\" property is needed");
+			}
+			prop = props.get("MainClassName");
+			if(prop != null) {
+				cur.setMainClassName((String)prop);
+				cur.addOption("run");
+			} else {
+				cur.setMainClassName("");
+			}
+			
+			prop = props.get("Options");
+			if(prop != null) {
+				String[] optionsList = ((String)prop).split(" ");
+				for(String opt : optionsList) {
+					if(!opt.equals("")) {
+						cur.addOption(opt);
+					}
+				}
+			}
+			
+			prop = props.get("Dependancies");
+			if(prop != null) {
+				String[] depsList = ((String)prop).split(" ");
+				for(String dep : depsList) {
+					if(!dep.equals("")) {
+						cur.addDependancy(dep);
+					}
+				}
+			}
+			
 			pluginsList.add(cur);
 		}
 		this.plugins.put(path,pluginsList);

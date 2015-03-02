@@ -4,13 +4,21 @@ import java.io.*;
 
 public class App {
 	public static void main(String[] args) throws Exception {
-		System.out.println("Hello World!");
+		System.out.println("Plateform start");
+		
 		PluginManager pluginMgr = PluginManager.getDefaultInstance();
-		pluginMgr.addPath((new File("./plugins")).getCanonicalPath());
+		pluginMgr.addPath("./plugins");
+		
 		//~ Plugin core = (Plugin)pluginMgr.getPlugin("Core");
 		//~ core.run();
-		//~ System.out.println("getPlugin");
-		Plugin core = (Plugin)pluginMgr.getPlugin("Debug");
-		core.run();
+		
+		RunnablePlugin debug = pluginMgr.getPluginInstance("Debug");
+		if(debug != null) {
+			debug.run();
+		} else {
+			System.out.println("No \"Debug\" plugin found");
+		}
+		
+		System.out.println("Plateform end");
 	}
 }

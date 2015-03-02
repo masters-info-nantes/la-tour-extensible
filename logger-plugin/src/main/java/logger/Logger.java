@@ -2,10 +2,10 @@ package logger;
 
 import java.util.Date;
 
-import latourextensible.platform.Plugin;
+import latourextensible.platform.RunnablePlugin;
 import latourextensible.platform.event.*;
 
-public class Logger extends Plugin implements IEventListener {
+public class Logger extends RunnablePlugin implements IEventListener {
 	public static final String EVENT_STARTED = "logger.Logger.STARTED";
 	public static final String EXTRA_STARTED_DATE = "logger.Logger.STARTED_DATE";
 	
