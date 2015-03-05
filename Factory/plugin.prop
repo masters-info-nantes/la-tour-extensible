@@ -1,0 +1,4 @@
+nom = Personnage
+package = perso
+classPrincipale = CharacterFactory
+type = Factory
