@@ -1,4 +1,6 @@
-package factory;
+package factoryMonster;
+
+import interfaces.AbstractMonster;
 
 public class MonsterFactory implements InterfaceMonsterFactory {	
 	Monster[] monster;
@@ -13,11 +15,11 @@ public class MonsterFactory implements InterfaceMonsterFactory {
 		monster[3] = new Monster(103,103,103);
 	}
 	
-	public InterfaceMonster make (int i) throws IndexOutOfBoundsException {
+	public AbstractMonster make (int i) throws IndexOutOfBoundsException {
 		if (i>sizeMonster || i<0)
 			throw new IndexOutOfBoundsException();
 	
-		InterfaceMonster m = new Monster(monster[i].getForce(), monster[i].getDefence(), monster[i].getLife());
+		AbstractMonster m = new Monster(monster[i].getForce(), monster[i].getDefence(), monster[i].getLife());
 		return m;
 	}
 			

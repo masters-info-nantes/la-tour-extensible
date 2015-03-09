@@ -1,5 +1,8 @@
-package factory;
-public class Character implements InterfaceCharacter
+package factoryCharacter;
+
+import interfaces.AbstractCharacter;
+
+public class Character extends AbstractCharacter
 {
 	private String name;
 	private int force;

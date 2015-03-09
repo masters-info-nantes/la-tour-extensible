@@ -1,4 +1,6 @@
-package factory;
+package factoryRace;
+
+import interfaces.AbstractRace;
 
 public class RaceFactory implements InterfaceRaceFactory {
 	
@@ -14,11 +16,11 @@ public class RaceFactory implements InterfaceRaceFactory {
 		race[3] = new Race("race3",103,103,103);
 	}
 	
-	public InterfaceRace make (int i) throws IndexOutOfBoundsException {
+	public AbstractRace make (int i) throws IndexOutOfBoundsException {
 		if (i>sizeRace || i<0)
 			throw new IndexOutOfBoundsException();
 	
-		InterfaceRace r = new Race(race[i].getRace(), race[i].getForce(), race[i].getDefence(), race[i].getLife());
+		AbstractRace r = new Race(race[i].getRace(), race[i].getForce(), race[i].getDefence(), race[i].getLife());
 		return r;
 	}
 			

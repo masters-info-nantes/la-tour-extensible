@@ -1,25 +1,27 @@
-package factory;
+package factoryJob;
 
-public class Race implements InterfaceRace {
-	
-	private String race;
+import interfaces.AbstractJob;
+
+public class Job extends AbstractJob {
+
+	private String job;
 	private int force;
 	private int defence;
 	private int life;
 	
-	public Race(String s, int f, int d, int l){
-		setRace(s);
+	public Job(String s, int f, int d, int l){
+		setJob(s);
 		setForce(f);
 		setDefence(d);
 		setLife(l);
 	}
 
-	public String getRace() {
-		return race;
+	public String getJob() {
+		return job;
 	}
 
-	public void setRace(String race) {
-		this.race = race;
+	public void setJob(String j) {
+		this.job = j;
 	}
 
 	public int getForce() {
