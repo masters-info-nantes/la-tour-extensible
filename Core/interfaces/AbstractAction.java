@@ -4,7 +4,9 @@ public abstract class AbstractAction {
 	
 	protected String name;
 	
-	public abstract String getName();
+	public String getName(){
+		return name;
+	}
 		
 	public abstract void doAction(AbstractCharacter personnage, AbstractMonster mob);
 
