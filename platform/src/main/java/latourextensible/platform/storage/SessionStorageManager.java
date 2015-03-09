@@ -24,7 +24,7 @@ public class SessionStorageManager {
 		return this.content.get(key);
 	}
 	
-	public int getBoolean(String key, boolean defaultValue) {
+	public boolean getBoolean(String key, boolean defaultValue) {
 		Object o = this.get(key);
 		if(o != null && o instanceof Boolean) {
 			return ((Boolean)o).booleanValue();
@@ -65,19 +65,19 @@ public class SessionStorageManager {
 	}
 	
 	public boolean putBoolean(String key, boolean o) {
-		return this.put(new Boolean(o));
+		return this.put(key,new Boolean(o));
 	}
 	
 	public boolean putInt(String key, int o) {
-		return this.put(new Integer(o));
+		return this.put(key,new Integer(o));
 	}
 	
 	public boolean putFloat(String key, float o) {
-		return this.put(new Float(o));
+		return this.put(key,new Float(o));
 	}
 	
 	public boolean putString(String key, String o) {
-		return this.put(o);
+		return this.put(key,o);
 	}
 	
 }
