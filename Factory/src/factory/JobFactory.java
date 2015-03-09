@@ -22,7 +22,7 @@ public class JobFactory implements InterfaceJobFactory {
 		return j;
 	}
 			
-	public int numberJob() {
+	public int getSize() {
 		return sizeJob;
 	}
 }

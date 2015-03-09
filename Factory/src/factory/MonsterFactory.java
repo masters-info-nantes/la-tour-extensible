@@ -21,7 +21,7 @@ public class MonsterFactory implements InterfaceMonsterFactory {
 		return m;
 	}
 			
-	public int numberMonster() {
+	public int getSize() {
 		return sizeMonster;
 	}
 

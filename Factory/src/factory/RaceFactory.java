@@ -22,7 +22,7 @@ public class RaceFactory implements InterfaceRaceFactory {
 		return r;
 	}
 			
-	public int numberRace() {
+	public int getSize() {
 		return sizeRace;
 	}
 

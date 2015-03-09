@@ -22,7 +22,7 @@ public class CharacterFactory{
 		return p;
 	}
 			
-	public int numberCharacter() {
+	public int getSize() {
 		return sizeCharacter;
 	}
 	
