@@ -1,6 +1,8 @@
 package latourextensible.platform;
 
 import static org.junit.Assert.*;
+import latourextensible.platform.event.EventManager;
+
 import org.junit.Test;
 
 //~ import java.io.IOException;

@@ -1,6 +1,11 @@
-package factory;
+package interfaces;
 
-public interface InterfaceRace {
+public abstract class AbstractRace {
+	
+	protected String race;
+	protected int force;
+	protected int defence;
+	protected int life;
 
 	public abstract String getRace();
 	

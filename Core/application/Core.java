@@ -1,23 +1,21 @@
 package application;
-import interfaces.Personnage;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
 
 public class Core {
 
-	private static PluginManager pluginManager = new PluginManager();
+	/*private static PluginManager pluginManager = new PluginManager();
 	private static FactoryPersonnage charactersFactory = (FactoryPersonnage)pluginManager.getPlugin("Personnage");
 	private static FactoryAction actionFactory = (FactoryAction)pluginManager.getPlugin("Action");
 	private static ArrayList<Action> actions = new ArrayList<>();
-	
+	*/
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		
-		Personnage joueur;	
+		/*Personnage joueur;	
 		
 		System.out.println("Quel personnage voulez vous créer ? vous avez le choix entre " + charactersFactory.getNbPersonnage()+" personnages");
 		Scanner sc = new Scanner(System.in);
@@ -44,7 +42,7 @@ public class Core {
 			}
 			
 			
-		}
+		}*/
 		
 
 	}

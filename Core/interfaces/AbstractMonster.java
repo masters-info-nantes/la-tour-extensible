@@ -1,6 +1,10 @@
-package factory;
+package interfaces;
 
-public interface InterfaceMonster {
+public abstract class AbstractMonster {
+	
+	protected int force;
+	protected int defence;
+	protected int life;
 	
 	public abstract int getForce();
 	

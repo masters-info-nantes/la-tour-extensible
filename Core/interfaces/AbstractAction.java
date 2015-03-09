@@ -2,7 +2,7 @@ package interfaces;
 
 public abstract class AbstractAction {
 	
-	private String name;
+	protected String name;
 	
 	public abstract String getName();
 	

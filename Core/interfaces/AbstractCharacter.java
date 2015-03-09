@@ -1,6 +1,11 @@
-package factory;
+package interfaces;
 
-public interface InterfaceCharacter {
+public abstract class AbstractCharacter {
+	
+	protected String name;
+	protected int force;
+	protected int defence;
+	protected int life;
 	
 	public abstract String getName();
 	

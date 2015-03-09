@@ -1,6 +1,11 @@
-package factory;
+package interfaces;
 
-public interface InterfaceJob {
+public abstract class AbstractJob {
+	
+	protected String job;
+	protected int force;
+	protected int defence;
+	protected int file;
 		
 	public abstract String getJob();
 	
