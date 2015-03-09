@@ -1,0 +1,4 @@
+Name = Race
+PackageName = factoryRace
+MainClassName = Main
+Services = Races

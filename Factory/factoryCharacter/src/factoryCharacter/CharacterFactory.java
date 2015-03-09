@@ -1,4 +1,7 @@
-package factory;
+package factoryCharacter;
+
+import factoryCharacter.Character;
+import interfaces.AbstractCharacter;
 
 public class CharacterFactory{
 	Character[] person;
@@ -13,24 +16,17 @@ public class CharacterFactory{
 		person[3] = new Character("name3",103,103,103);
 	}
 	
-	public InterfaceCharacter make (int i) throws IndexOutOfBoundsException {
+	public AbstractCharacter make (int i) throws IndexOutOfBoundsException {
 		if (i>sizeCharacter || i<0)
 			throw new IndexOutOfBoundsException();
 	
-		InterfaceCharacter p = new Character(person[i].getName(), person[i].getForce(), person[i].getDefence(), person[i].getLife());
+		AbstractCharacter p = new Character(person[i].getName(), person[i].getForce(), person[i].getDefence(), person[i].getLife());
 		p = person[i];
 		return p;
 	}
 			
-	public int numberCharacter() {
+	public int getSize() {
 		return sizeCharacter;
 	}
 	
-/*	public static void main(String[] args){
-		CharacterFactory cf = new CharacterFactory();
-		Character c = cf.make(3);
-		
-		System.out.println(c.getName());
-	}
-*/
 }

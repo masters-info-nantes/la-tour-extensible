@@ -1,4 +1,6 @@
-package factory;
+package factoryJob;
+
+import interfaces.AbstractJob;
 
 public class JobFactory implements InterfaceJobFactory {
 
@@ -14,15 +16,15 @@ public class JobFactory implements InterfaceJobFactory {
 		job[3] = new Job("job3",103,103,103);
 	}
 	
-	public InterfaceJob make (int i) throws IndexOutOfBoundsException {
+	public AbstractJob make (int i) throws IndexOutOfBoundsException {
 		if (i>sizeJob || i<0)
 			throw new IndexOutOfBoundsException();
 	
-		InterfaceJob j = new Job(job[i].getJob(), job[i].getForce(), job[i].getDefence(), job[i].getLife());
+		AbstractJob j = new Job(job[i].getJob(), job[i].getForce(), job[i].getDefence(), job[i].getLife());
 		return j;
 	}
 			
-	public int numberJob() {
+	public int getSize() {
 		return sizeJob;
 	}
 }
