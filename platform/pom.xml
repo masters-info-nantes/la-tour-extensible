@@ -24,7 +24,7 @@
 						</execution>
 					</executions>
 					<configuration>
-						<mainClass>latourextensible.platform.App</mainClass>
+						<mainClass>latourextensible.platform.Platform</mainClass>
 					</configuration>
 				</plugin>
 				<plugin>

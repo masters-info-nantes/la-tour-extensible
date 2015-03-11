@@ -15,6 +15,8 @@ public class Logger extends RunnablePlugin implements IEventListener {
 	}
 	
 	public void onEvent(Event event) {
-		System.out.println("================ New Event ================\n"+event.toString()+"\n===========================================");
+		System.out.println("================ New Event ================");
+		System.out.println(event.toString());
+		System.out.println("===========================================");
 	}
 }

@@ -24,12 +24,12 @@ public class SessionStorageManager {
 		return this.content.get(key);
 	}
 	
-	public boolean getBoolean(String key, boolean defaultValue) {
+	public Boolean getBoolean(String key) {
 		Object o = this.get(key);
 		if(o != null && o instanceof Boolean) {
-			return ((Boolean)o).booleanValue();
+			return ((Boolean)o);
 		}
-		return defaultValue;
+		return null;
 	}
 	
 	public int getInt(String key, int defaultValue) {

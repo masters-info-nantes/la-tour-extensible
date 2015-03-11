@@ -1,4 +1,5 @@
 Name = Basic Event Logger
-Type = Debug
+Description = Simple plugin example. Show how to receive all event.
+Service = Debug
 PackageName = logger
 MainClassName = Logger

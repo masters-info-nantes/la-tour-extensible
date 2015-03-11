@@ -1,8 +1,9 @@
-package latourextensible.platform;
+package latourextensible.platform.event;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import java.lang.Boolean;
 //~ import java.io.IOException;
 import org.junit.Before;
 
@@ -28,13 +29,27 @@ public class EventTest {
 	public void testExtra() {
 		assertTrue(e.emptyExtra());
 		String extraKey1 = "latourextensible.platform.Event.EXTRA_TEST1";
-		String extraValue1 = "test1";
+		Object extraValue1 = new Object() {};
 		String extraKey2 = "latourextensible.platform.Event.EXTRA_TEST2";
-		String extraValue2 = "test2";
+		Object extraValue2 = new Object() {};
 		e.addExtra(extraKey1,extraValue1);
 		assertFalse(e.emptyExtra());
 		assertNotNull(e.getExtra(extraKey1));
 		assertEquals(extraValue1,e.getExtra(extraKey1));
+		assertNull(e.getExtra(extraKey2));
+	}
+	
+	@Test
+	public void testExtraString() {
+		assertTrue(e.emptyExtra());
+		String extraKey1 = "latourextensible.platform.Event.EXTRA_TEST1";
+		String extraValue1 = "test1";
+		String extraKey2 = "latourextensible.platform.Event.EXTRA_TEST2";
+		String extraValue2 = "test2";
+		e.addExtraString(extraKey1,extraValue1);
+		assertFalse(e.emptyExtra());
+		assertNotNull(e.getExtraString(extraKey1));
+		assertEquals(extraValue1,e.getExtraString(extraKey1));
 		assertNull(e.getExtra(extraKey2));
 	}
 
@@ -75,9 +90,13 @@ public class EventTest {
 		boolean extraValue2 = false;
 		e.addExtraBoolean(extraKey1,extraValue1);
 		assertFalse(e.emptyExtra());
-		assertEquals(extraValue1,e.getExtraBoolean(extraKey1));
-		assertEquals(false,e.getExtraBoolean(extraKey2));
-		assertNull(e.getExtra(extraKey2));
+		Boolean bool = e.getExtraBoolean(extraKey1);
+		assertNotNull(bool);
+		assertEquals(extraValue1,bool.booleanValue());
+		bool = e.getExtraBoolean(extraKey2);
+		assertNull(bool);
+		Object o = e.getExtra(extraKey2);
+		assertNull(o);
 	}
 
 	@Test

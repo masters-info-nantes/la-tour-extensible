@@ -11,14 +11,14 @@ import java.util.Set;
  */
 public class Event {
 	private String action;
-	private HashMap<String,String> extra;
+	private HashMap<String,Object> extra;
 	
 	/** Construct a new {@code Event}
 	 * @param action The name of the {@code Event}.
 	 */	
 	public Event(String action) {
 		this.action = action;
-		this.extra = new HashMap<String,String>();
+		this.extra = new HashMap<String,Object>();
 	}
 	
 	/** Gets the action name
@@ -42,44 +42,50 @@ public class Event {
 		return this.extra.keySet();
 	}
 	
+	/** Gets extra {@code Object} data
+	 * @param key The key of wanted extra.
+	 * @return The data corresponding to the passing key, {@code null} otherwise.
+	 */
+	public Object getExtra(String key) {
+		return this.extra.get(key);
+		
+	}
+	
 	/** Gets extra {@code String} data
 	 * @param key The key of wanted extra.
 	 * @return The data corresponding to the passing key, {@code null} otherwise.
 	 */
-	public String getExtra(String key) {
-		return this.extra.get(key);
+	public String getExtraString(String key) {
+		Object o = this.getExtra(key);
+		if(o instanceof String) {
+			return (String)o;
+		} else {
+			return null;
+		}
 	}
 	
 	/** Gets extra {@code int} data
 	 * @param key The key of wanted extra.
-	 * @return The data corresponding to the passing key, {@code null} otherwise.
+	 * @return The data corresponding to the passing key, {@code defaultValue} otherwise.
 	 */
 	public int getExtraInt(String key, int defaultValue) {
-		try {
-			String i = this.extra.get(key);
-			if(i != null) {
-				return Integer.parseInt(i);
-			} else {
-				return defaultValue;
-			}
-		} catch(NumberFormatException ex) {
+		Object o = this.getExtra(key);
+		if(o instanceof Integer) {
+			return ((Integer)o).intValue();
+		} else {
 			return defaultValue;
 		}
 	}
 	
 	/** Gets extra {@code float} data
 	 * @param key The key of wanted extra.
-	 * @return The data corresponding to the passing key, {@code null} otherwise.
+	 * @return The data corresponding to the passing key, {@code defaultValue} otherwise.
 	 */
 	public float getExtraFloat(String key, float defaultValue) {
-		try {
-			String f = this.extra.get(key);
-			if(f != null) {
-				return Float.parseFloat(f);
-			} else {
-				return defaultValue;
-			}
-		} catch(NumberFormatException ex) {
+		Object o = this.getExtra(key);
+		if(o instanceof Float) {
+			return ((Float)o).floatValue();
+		} else {
 			return defaultValue;
 		}
 	}
@@ -88,15 +94,28 @@ public class Event {
 	 * @param key The key of wanted extra.
 	 * @return The data corresponding to the passing key, {@code null} otherwise.
 	 */
-	public boolean getExtraBoolean(String key) {
-		return Boolean.parseBoolean(this.extra.get(key));
+	public Boolean getExtraBoolean(String key) {
+		Object o = this.getExtra(key);
+		if(o instanceof Boolean) {
+			return ((Boolean)o);
+		} else {
+			return null;
+		}
+	}
+	
+	/** Adds extra {@code Object} data
+	 * @param key The key wanted for the extra.
+	 * @param value The value you wanted to store
+	 */
+	public void addExtra(String key, Object value) {
+		this.extra.put(key,value);
 	}
 	
 	/** Adds extra {@code String} data
 	 * @param key The key wanted for the extra.
 	 * @param value The value you wanted to store
 	 */
-	public void addExtra(String key, String value) {
+	public void addExtraString(String key, String value) {
 		this.extra.put(key,value);
 	}
 	
@@ -105,7 +124,7 @@ public class Event {
 	 * @param value The value you wanted to store
 	 */
 	public void addExtraInt(String key, int value) {
-		this.extra.put(key,Integer.toString(value));
+		this.extra.put(key,new Integer(value));
 	}
 	
 	/** Adds extra {@code float} data
@@ -113,7 +132,7 @@ public class Event {
 	 * @param value The value you wanted to store
 	 */
 	public void addExtraFloat(String key, float value) {
-		this.extra.put(key,Float.toString(value));
+		this.extra.put(key,new Float(value));
 	}
 	
 	/** Adds extra {@code boolean} data
@@ -121,7 +140,7 @@ public class Event {
 	 * @param value The value you wanted to store
 	 */
 	public void addExtraBoolean(String key, boolean value) {
-		this.extra.put(key,Boolean.toString(value));
+		this.extra.put(key,new Boolean(value));
 	}
 	
 	/** Returns whether this {@code Event} contains extra.
@@ -138,7 +157,7 @@ public class Event {
 		String ret = "ACTION = \""+this.action+"\"\n"
 					+"EXTRA = [";
 		for(String k : this.extra.keySet()) {
-			ret += "\n\t\""+k+"\" : \""+this.extra.get(k)+"\"";
+			ret += "\n\t\""+k+"\" : \""+this.extra.get(k).toString()+"\"";
 		}
 		return ret+"]";
 	}

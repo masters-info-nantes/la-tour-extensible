@@ -12,9 +12,14 @@ import java.util.HashMap;
  * Note: "listener" is an object instantiate from class which implement the {@see latourextensible.platform.IEventListener} interface.
  */
 public class EventManager {
+	/** Constant event action name for broadcast event
+	 * This event is send automatically after sending any broadcast event
+	 */
+	public static final String EVENT_ALL_BROADCAST = "latourextensible.platform.EventManager.ALL_BROADCAST";
+	/** Constant extra event name for indicate original event action name
+	 */
+	public static final String EXTRA_BROADCAST_EVENT_NAME = "latourextensible.platform.EventManager.BROADCAST_EVENT_NAME";
 	
-	public static final String EVENT_ALL_BROADCAST = "latourextensible.platform.event.ALL_BROADCAST";
-	public static final String EXTRA_BROADCAST_EVENT_NAME = "latourextensible.platform.extra.BROADCAST_EVENT_NAME";
 	private static EventManager instance = null;
 	private HashMap<String,ArrayList<IEventListener>> listeners;
 
@@ -35,7 +40,7 @@ public class EventManager {
 	 * @param action The action of wanted {@code Event}
 	 * @param o Listener you wanted to register
 	 */
-	public void register(String action, IEventListener o) {
+	public synchronized void register(String action, IEventListener o) {
 		ArrayList<IEventListener> list = this.listeners.get(action);
 		if(list == null) {
 			list = new ArrayList<IEventListener>();
@@ -48,14 +53,14 @@ public class EventManager {
 	 * @param recipient The listener to which you want to send the {@code Event}
 	 * @param e The {@code Event} you wanted to send
 	 */
-	public void send(IEventListener recipient, Event e) {
+	public synchronized void send(IEventListener recipient, Event e) {
 		recipient.onEvent(e);
 	}
 
 	/** Broadcast an {@code Event} to all corresponding registered listeners
 	 * @param e The {@code Event} you wanted to send
 	 */
-	public void broadcast(Event e) {
+	public synchronized void broadcast(Event e) {
 		ArrayList<IEventListener> recipients = this.listeners.get(e.getAction());
 		if(recipients != null) {
 			for(IEventListener r : recipients) {
@@ -63,7 +68,7 @@ public class EventManager {
 			}
 		}
 		if(!e.getAction().equals(EventManager.EVENT_ALL_BROADCAST)) {
-			e.addExtra(EventManager.EXTRA_BROADCAST_EVENT_NAME,e.getAction());
+			e.addExtraString(EventManager.EXTRA_BROADCAST_EVENT_NAME,e.getAction());
 			e.setAction(EventManager.EVENT_ALL_BROADCAST);
 			broadcast(e);
 		}

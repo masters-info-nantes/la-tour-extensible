@@ -2,38 +2,47 @@ package latourextensible.platform;
 
 import java.lang.String;
 import java.util.ArrayList;
+import java.net.URL;
 
 public class PluginProperty {
 	private String name;
-	private String type;
+	private String description;
+	private String service;
 	private String packageName;
 	private String mainClassName;
+	private URL jarPath;
 	private ArrayList<String> dependancies;
 	private ArrayList<String> options;
 
 	private boolean instanciate;
 
-	public PluginProperty(String name, String type, String packageName, String mainClassName) {
+	public PluginProperty(String name, String description, String service, String packageName, String mainClassName, URL jarPath) {
 		this.name = name;
-		this.type = type;
+		this.description = description;
+		this.service = service;
 		this.packageName = packageName;
 		this.mainClassName = mainClassName;
+		this.jarPath = jarPath;
 		this.dependancies = new ArrayList<String>();
 		this.options = new ArrayList<String>();
 
 		this.instanciate = false;
 	}
 
-	public PluginProperty() {
-		this(null,null,null,null);
+	public PluginProperty(URL jarPath) {
+		this(null,null,null,null,null,jarPath);
 	}
 
 	public String getName() {
 		return this.name;
 	}
 
-	public String getType() {
-		return this.type;
+	public String getDescription() {
+		return this.description;
+	}
+
+	public String getService() {
+		return this.service;
 	}
 
 	public String getPackageName() {
@@ -42,6 +51,10 @@ public class PluginProperty {
 
 	public String getMainClassName() {
 		return this.mainClassName;
+	}
+
+	public URL getJarPath() {
+		return this.jarPath;
 	}
 
 	public ArrayList<String> getDependancies() {
@@ -60,9 +73,13 @@ public class PluginProperty {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setService(String service) {
+		this.service = service;
 	}
 
 	public void setPackageName(String packageName) {
@@ -89,9 +106,11 @@ public class PluginProperty {
 	public String toString() {
 
 		return "{\n\tname:\""+this.name
-				+"\",\n\ttype:\""+this.type
+				+"\",\n\tdescription:\""+this.description
+				+"\",\n\tservice:\""+this.service
 				+"\",\n\tpackageName:\""+this.packageName
 				+"\",\n\tmainClassName:\""+this.mainClassName
+				+"\",\n\tjarPath:\""+this.jarPath.toString()
 				+"\",\n\tdependancies:"+json(this.dependancies)
 				+",\n\toptions:"+json(this.options)+"\n}";
 	}
