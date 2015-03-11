@@ -1,0 +1,14 @@
+3 plugins Action
+3 plugins Race
+3 plugins Job
+3 plugins Monstre
+3 plugins Characters
+3 plugins Core
+
+Antony + Franck + Alexis => voir ce que l'on doit mettre dans les plugin core (Event & cie)
+Marie + Eva + Franck + Alexis => les plugins
+
+Jeudi on commence tout ca
+Lundi on doit avoir une version qui tourne pour debuger
+Jeudi on doit avoir une version qui peut être rendue
+
