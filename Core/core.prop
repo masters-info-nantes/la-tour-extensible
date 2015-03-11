@@ -1,4 +1,4 @@
 Name = Basic Core
 Type = Core
 PackageName = application
-MainClassName = CreationPersonnage
+MainClassName = App

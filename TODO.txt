@@ -12,3 +12,27 @@ Jeudi on commence tout ca
 Lundi on doit avoir une version qui tourne pour debuger
 Jeudi on doit avoir une version qui peut être rendue
 
+Pour les interfaces:
+
+	choix des plugins:
+		récuperer la liste de chaque type de plugin (tableau de String ?)
+		mettre les noms dans les différentes listes
+
+	creation du personnage:
+		on recupère un ensemble de races (des classes), on récupère les noms pour l'affichage dans les listes déroulantes
+		idem pour les jobs
+
+	Les salles:
+		à chaque changement de salle on demande un nouveau mob;
+		on change l'affichage de fond
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+POUR SE METTRE D'ACCORD
+
+
+- La plateforme charge un core par defaut (celui qui contient la fentre de choix de plugins): comment le reconnaitre ? son nom ? le fichier de conf ?
+
+- Il n'y a pas de plugin de salle (on change juste le fond dans le core)
+
+- A prioris on n'a q'une classe race/job/monstre dans les différents plugins, ce ne sont que des data et il n'y a pas de comportement, mais faire une classe pour N instances empêche de créer des plugin où l'on pourrait avoir un comportement pour ces différentes classes. On part donc du principe qu'on empêche toute implémentation de comportement dans ces classe. C'est un choix qu'il faudra bien développer dans le rapport.
+
