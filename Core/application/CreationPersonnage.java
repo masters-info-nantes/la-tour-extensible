@@ -1,4 +1,5 @@
 package application;
+
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,7 +36,7 @@ public class CreationPersonnage extends JFrame{
 		
 		ActionListener mlis = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame frame = new Jeux();
+				JFrame frame = new Salle();
 				setVisible(false);
 			}
 		};
@@ -89,7 +90,7 @@ public class CreationPersonnage extends JFrame{
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		
 		JFrame frame = new CreationPersonnage();
 		
@@ -120,9 +121,9 @@ public class CreationPersonnage extends JFrame{
 			}
 			
 			
-		}*/
+		}
 		
 
-	}
+	}*/
 
 }
