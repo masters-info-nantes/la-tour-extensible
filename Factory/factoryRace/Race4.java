@@ -2,18 +2,18 @@ package factoryRace;
 
 import interfaces.AbstractRace;
 
-public class Race extends AbstractRace {
+public class Race4 extends AbstractRace {
 	
 	private String race;
 	private int force;
 	private int defence;
 	private int life;
 	
-	public Race(String s, int f, int d, int l){
-		setRace(s);
-		setForce(f);
-		setDefence(d);
-		setLife(l);
+	public Race4(){
+		setRace("race4");
+		setForce(100);
+		setDefence(100);
+		setLife(100);
 	}
 
 	public String getRace() {
