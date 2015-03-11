@@ -32,7 +32,13 @@ POUR SE METTRE D'ACCORD
 
 - La plateforme charge un core par defaut (celui qui contient la fentre de choix de plugins): comment le reconnaitre ? son nom ? le fichier de conf ?
 
+- Tout est géré grace a des event, on fait une requete a la plateforme qui fera en sorte de nous donner une réponse
+
 - Il n'y a pas de plugin de salle (on change juste le fond dans le core)
 
-- A prioris on n'a q'une classe race/job/monstre dans les différents plugins, ce ne sont que des data et il n'y a pas de comportement, mais faire une classe pour N instances empêche de créer des plugin où l'on pourrait avoir un comportement pour ces différentes classes. On part donc du principe qu'on empêche toute implémentation de comportement dans ces classe. C'est un choix qu'il faudra bien développer dans le rapport.
+- FAUX:
+	A prioris on n'a q'une classe race/job/monstre dans les différents plugins, ce ne sont que des data et il n'y a pas de comportement, mais faire une classe pour N instances empêche de créer des plugin où l'on pourrait avoir un comportement pour ces différentes classes. On part donc du principe qu'on empêche toute implémentation de comportement dans ces classe. C'est un choix qu'il faudra bien développer dans le rapport.
+
+- CORRECTION:
+	Non c'est moi qui deconne, l'implémentation d'un plugin dépend d'un core donc en faite on s'en fout ... c'est juste que certains plugins ne peuvent pas fonctionner entre eux. It's my fault, my apologizes.
 
