@@ -1,4 +1,4 @@
-package Actionpkg;
+package actionpkg;
 
 import java.util.ArrayList;
 
@@ -10,13 +10,13 @@ public class ActionFactory {
 		nbAction = 3;
 	}
 	
-	public ArrayList<Action> make() {
+	public Action[] make() {
 		
-		ArrayList<Action> list = new ArrayList<Action>();
-		list.add(new Passer());
-		list.add(new Manger());
-		list.add(new SeCacher());
-		return null;
+		Action list[] = new Action[3];
+		list[0]=new Passer();
+		list[1]=new Manger();
+		list[2]=new SeCacher();
+		return list;
 	}
 
 	public int getNbAction() {

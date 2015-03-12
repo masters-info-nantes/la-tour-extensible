@@ -1,9 +1,10 @@
-package Actionpkg;
+package barbarespkg;
 
 import latourextensible.platform.Event;
 import latourextensible.platform.EventManager;
 import latourextensible.platform.IEventListener;
 import latourextensible.platform.RunnablePlugin;
+import latourextensible.platform.storage.SessionStorageManager;
 
 public class App extends RunnablePlugin implements IEventListener {
 

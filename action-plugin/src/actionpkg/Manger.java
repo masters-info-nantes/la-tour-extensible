@@ -1,8 +1,9 @@
-package Actionpkg;
+package actionpkg;
 
 public class Manger extends Action {
 
 	public Manger () {
-		super(TypeAction.Attack, 10);
+		super("Manger", TypeAction.Attack, 10);
 	}
+
 }

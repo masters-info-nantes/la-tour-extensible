@@ -1,8 +1,9 @@
-package Actionpkg;
+package actionpkg;
 
 public class Passer extends Action {
 	
 	public Passer () {
-		super(TypeAction.Defense,0);
+		super("Passer", TypeAction.Defense, 0);
 	}
+
 }

@@ -1,0 +1,5 @@
+Name = BarbarePlugin
+Description = Set d'actions barbares
+MainClassName = App
+PackageName = barbarespkg
+Service = Action

@@ -1,0 +1,5 @@
+Name = ActionPlugin
+Description = Set d'actions de base
+MainClassName = App
+PackageName = actionpkg
+Service = Action

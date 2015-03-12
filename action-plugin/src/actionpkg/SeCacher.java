@@ -1,8 +1,8 @@
-package Actionpkg;
+package actionpkg;
 
 public class SeCacher extends Action {
 
 	public SeCacher () {
-		super(TypeAction.Defense, 5);
+		super("SeCacher", TypeAction.Defense, 5);
 	}
 }
