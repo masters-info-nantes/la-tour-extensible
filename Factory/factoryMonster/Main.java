@@ -4,8 +4,8 @@ import latourextensible.platform.RunnablePlugin;
 import latourextensible.platform.event.*;
 import latourextensible.platform.storage.SessionStorageManager;
 import factoryMonster.MonsterFactory;
-
 import interfaces.AbstractMonster;
+import interfaces.AbstractRace;
 
 import java.util.*;
 
@@ -30,8 +30,9 @@ public class Main extends RunnablePlugin implements IEventListener{
 		{
 				i = (random.nextInt())%monsterF.getSize();
 				AbstractMonster m = monsterF.make(i);
-				SessionStorageManager.getDefaultInstance().put(event.getExtra("storagekey"),m);
-				EventManager.getDefaultInstance().broadcast(new Event("core.application.CREER_MONSTRE_CREATED"));
+				Event e = new Event("core.application.CREER_MONSTRE_CREATED");
+				e.addExtra("list",monsterF.getList());
+				EventManager.getDefaultInstance().broadcast(e);
 		}
 		
 	}

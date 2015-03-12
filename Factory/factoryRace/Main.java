@@ -27,8 +27,9 @@ public class Main extends RunnablePlugin implements IEventListener{
 		if (event.getAction() =="core.application.CREER_CHARACTER"){
 			i = (random.nextInt())%raceF.getSize();
 			AbstractRace r = raceF.make(i);
-			SessionStorageManager.getDefaultInstance().put(event.getExtra("storagekey"),r);
-			EventManager.getDefaultInstance().broadcast(new Event("core.application.CREER_JOB_CREATED"));
+			Event e = new Event("core.application.CREER_JOB_CREATED");
+			e.addExtra("list", raceF.getList());
+			EventManager.getDefaultInstance().broadcast(e);
 		}
 	}
 

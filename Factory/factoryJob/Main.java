@@ -5,6 +5,7 @@ import latourextensible.platform.event.*;
 import latourextensible.platform.storage.SessionStorageManager;
 import factoryJob.JobFactory;
 import interfaces.AbstractJob;
+import interfaces.AbstractMonster;
 
 import java.util.*;
 
@@ -27,8 +28,9 @@ public class Main extends RunnablePlugin implements IEventListener{
 		if (event.getAction() =="core.application.CREER_CHARACTER"){
 			i = (random.nextInt())%jobF.getSize();
 			AbstractJob j = jobF.make(i);
-			SessionStorageManager.getDefaultInstance().put(event.getExtra("storagekey"),j);
-			EventManager.getDefaultInstance().broadcast(new Event("core.application.CREER_JOB_CREATED"));
+			Event e = new Event("core.application.CREER_JOB_CREATED");
+			e.addExtra("list", jobF.getList());
+			EventManager.getDefaultInstance().broadcast(e);
 		}
 	}
 

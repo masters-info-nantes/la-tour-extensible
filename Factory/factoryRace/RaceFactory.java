@@ -24,6 +24,10 @@ public class RaceFactory implements InterfaceRaceFactory {
 		return r;
 	}
 			
+	public AbstractRace[] getList(){
+		return race;
+	}
+	
 	public int getSize() {
 		return size;
 	}

@@ -1,6 +1,7 @@
 package factoryJob;
 
 import interfaces.AbstractJob;
+import interfaces.AbstractMonster;
 
 public class JobFactory implements InterfaceJobFactory {
 
@@ -22,6 +23,10 @@ public class JobFactory implements InterfaceJobFactory {
 	
 		AbstractJob j = new Job(job[i].getJob(), job[i].getForce(), job[i].getDefence(), job[i].getLife());
 		return j;
+	}
+	
+	public AbstractJob[] getList(){
+		return job;
 	}
 			
 	public int getSize() {

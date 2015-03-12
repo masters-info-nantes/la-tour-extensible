@@ -2,6 +2,7 @@ package factoryCharacter;
 
 import factoryCharacter.Character;
 import interfaces.AbstractCharacter;
+import interfaces.AbstractJob;
 
 public class CharacterFactory{
 	Character[] person;
@@ -25,6 +26,10 @@ public class CharacterFactory{
 		return p;
 	}
 			
+	public AbstractCharacter[] getList(){
+		return person;
+	}
+	
 	public int getSize() {
 		return sizeCharacter;
 	}

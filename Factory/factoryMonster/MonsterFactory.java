@@ -22,6 +22,10 @@ public class MonsterFactory implements InterfaceMonsterFactory {
 		AbstractMonster m = new Monster(monster[i].getForce(), monster[i].getDefence(), monster[i].getLife());
 		return m;
 	}
+	
+	public AbstractMonster[] getList(){
+		return monster;
+	}
 			
 	public int getSize() {
 		return sizeMonster;
