@@ -6,15 +6,30 @@ public abstract class AbstractMonster {
 	protected int defence;
 	protected int life;
 	
-	public abstract int getForce();
+	public AbstractMonster(int force, int defence, int life) {
+		super();
+		this.force = force;
+		this.defence = defence;
+		this.life = life;
+	}
 	
-	public abstract void setForce(int force); 
+	public int getForce() {
+		return force;
+	}
+	public void setForce(int force) {
+		this.force = force;
+	}
+	public int getDefence() {
+		return defence;
+	}
+	public void setDefence(int defence) {
+		this.defence = defence;
+	}
+	public int getLife() {
+		return life;
+	}
+	public void setLife(int life) {
+		this.life = life;
+	}	
 
-	public abstract int getDefence(); 
-
-	public abstract void setDefence(int defence);
-	
-	public abstract int getLife();
-
-	public abstract void setLife(int life);
 }

@@ -7,20 +7,43 @@ public abstract class AbstractRace {
 	protected int defence;
 	protected int life;
 
-	public abstract String getRace();
-	
-	public abstract void setRace(String r);
-	
-	public abstract int getForce();
-	
-	public abstract void setForce(int force); 
+	public AbstractRace(String r, int f, int d, int l){
+		this.race = r;
+		this.force = f;
+		this.defence = d;
+		this.life = l;
+	}
 
-	public abstract int getDefence(); 
+	public String getRace() {
+		return race;
+	}
 
-	public abstract void setDefence(int defence);
-	
-	public abstract int getLife();
+	public void setRace(String race) {
+		this.race = race;
+	}
 
-	public abstract void setLife(int life);
+	public int getForce() {
+		return force;
+	}
+
+	public void setForce(int force) {
+		this.force = force;
+	}
+
+	public int getDefence() {
+		return defence;
+	}
+
+	public void setDefence(int defence) {
+		this.defence = defence;
+	}
+
+	public int getLife() {
+		return life;
+	}
+
+	public void setLife(int life) {
+		this.life = life;
+	}
 	
 }
