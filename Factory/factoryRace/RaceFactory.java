@@ -3,40 +3,28 @@ package factoryRace;
 import interfaces.AbstractRace;
 
 public class RaceFactory implements InterfaceRaceFactory {
-	
+
+	Race[] race;
 	int size;
 	
 	public RaceFactory() {
 		size = 4;
+		race = new Race[size];
+		race[0] = new Race("race0",100,100,100);	
+		race[1] = new Race("race1",101,101,101);
+		race[2] = new Race("race2",102,102,102);
+		race[3] = new Race("race3",103,103,103);
 	}
 	
-	public AbstractRace make (String s) throws IndexOutOfBoundsException {
+	public AbstractRace make (int i) throws IndexOutOfBoundsException {
+		if (i>size || i<0)
+			throw new IndexOutOfBoundsException();
 	
-		AbstractRace r;
-		
-		switch(s)
-		{
-			case "race1":
-				r = new Race1();
-				break;
-			case "race2":
-				r = new Race2();
-				break;
-			case "race3":
-				r = new Race3();
-				break;
-			case "race4":
-				r = new Race4();
-				break;
-			default:
-				throw new IndexOutOfBoundsException();
-		}	
-
+		AbstractRace r = new Race(race[i].getRace(), race[i].getForce(), race[i].getDefence(), race[i].getLife());
 		return r;
 	}
 			
 	public int getSize() {
 		return size;
 	}
-
 }

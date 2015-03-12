@@ -1,5 +1,4 @@
 package factoryJob;
-
 import interfaces.AbstractJob;
 
 public interface InterfaceJobFactory {
