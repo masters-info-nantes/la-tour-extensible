@@ -1,11 +1,11 @@
-package latourextensible.platform;
+package latourextensible.platform.event;
+
+import java.lang.Thread;
 
 import static org.junit.Assert.*;
-import latourextensible.platform.event.EventManager;
 
 import org.junit.Test;
 
-//~ import java.io.IOException;
 import org.junit.Before;
 
 public class EventManagerTest {
@@ -22,7 +22,9 @@ public class EventManagerTest {
 	public void setUp() {
 		em = EventManager.getDefaultInstance();
 		test1 = new Test1();
+		test1.run();
 		test2 = new Test2();
+		test2.run();
 	}
 
 	@Test
@@ -103,7 +105,7 @@ public class EventManagerTest {
 		assertNotNull(em.toString());
 	}
 
-	private class Test1 implements IEventListener {
+	private class Test1 extends Thread implements IEventListener {
 
 		public boolean eventOne = false;
 		public boolean eventDefault = false;
@@ -112,6 +114,10 @@ public class EventManagerTest {
 			em.register(ACTION_ONE,this);
 		}
 
+		public void run() {
+			System.out.println("Test1.run");
+		}
+		
 		public void onEvent(Event event) {
 			switch(event.getAction()) {
 			case ACTION_ONE:
@@ -123,7 +129,7 @@ public class EventManagerTest {
 		}
 	}
 
-	private class Test2 implements IEventListener {
+	private class Test2 extends Thread implements IEventListener {
 
 		public boolean eventOne = false;
 		public boolean eventTwo = false;
@@ -133,6 +139,10 @@ public class EventManagerTest {
 		public Test2() {
 			em.register(ACTION_ONE,this);
 			em.register(ACTION_TWO,this);
+		}
+
+		public void run() {
+			System.out.println("Test2.run");
 		}
 
 		public void onEvent(Event event) {

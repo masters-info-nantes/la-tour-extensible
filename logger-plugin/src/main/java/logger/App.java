@@ -10,7 +10,7 @@ public class App {
 		l.run();
 		
 		Event e = new Event(Logger.EVENT_STARTED);
-		e.addExtra(Logger.EXTRA_STARTED_DATE,(new Date()).toString());
+		e.addExtraString(Logger.EXTRA_STARTED_DATE,(new Date()).toString());
 		EventManager.getDefaultInstance().broadcast(e);
 		
 		EventManager.getDefaultInstance().broadcast(new Event("je suis un event quelconque"));

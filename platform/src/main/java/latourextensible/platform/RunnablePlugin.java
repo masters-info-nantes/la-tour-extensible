@@ -1,5 +1,7 @@
 package latourextensible.platform;
 
-public abstract class RunnablePlugin {
+import java.lang.Thread;
+
+public abstract class RunnablePlugin extends Thread {
 	public abstract void run();
 }
