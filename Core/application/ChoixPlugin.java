@@ -89,7 +89,8 @@ public class ChoixPlugin extends JFrame implements ActionListener {
 				
 				ActionListener mlis = new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						JFrame frame = new CreationPersonnage();
+						//TODO: demander à la plateforme de charger un core si different de celui courant
+						JFrame frame = new CreationPersonnage(raceList.getSelectedItem().toString(), jobList.getSelectedItem().toString(), personList.getSelectedItem().toString(), monsterList.getSelectedItem().toString(), actionList.getSelectedItem().toString());
 						setVisible(false);
 					}
 				};

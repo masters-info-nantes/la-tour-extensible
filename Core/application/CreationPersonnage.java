@@ -1,5 +1,9 @@
 package application;
 
+import interfaces.AbstractCharacter;
+import interfaces.AbstractJob;
+import interfaces.AbstractRace;
+
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,17 +11,26 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import javax.swing.*;
 
 
-public class CreationPersonnage extends JFrame{
+public class CreationPersonnage extends JFrame implements ActionListener {
 
+	private String pluginMonster;
+	private String pluginAction;
+	AbstractCharacter character;
+	ArrayList<AbstractJob> mesJob;
+	ArrayList<AbstractRace> mesRaces;
 	
-	public CreationPersonnage(){
+	public CreationPersonnage(String pluginRaceChoix, String pluginJobChoix, String pluginCharacterChoix, String pluginMonsterChoix, String pluginActionChoix){
 		super("Création personnage");
+
+		this.pluginMonster = pluginMonsterChoix;
+		this.pluginAction = pluginActionChoix;
 		
+		//TODO: demander a la plateforme les plugin monster, job et classe
+
 		WindowListener lis = new WindowAdapter() {
 			public void windowClosing(WindowEvent e){
 				System.exit(0);
@@ -34,13 +47,8 @@ public class CreationPersonnage extends JFrame{
 		 */
 		JButton b = new JButton("Valider");
 		
-		ActionListener mlis = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFrame frame = new Salle();
-				setVisible(false);
-			}
-		};
-		b.addActionListener(mlis);		
+
+		b.addActionListener(this);		
 		this.add(b);
 		b.setBounds(490, 225, 100, 30);
 		
@@ -58,12 +66,17 @@ public class CreationPersonnage extends JFrame{
 		/*
 		 * Choix race
 		 */
+		//TODO: parcourir notre liste de Race pour ajouter leur nom dans la liste
 		JLabel label_race = new JLabel("Je suis un: ");
 		this.add(label_race);
 		label_race.setBounds(lab.getWidth()+20, 0, 100, 25);
 
-		String[] mes_races = {"Vampire", "Demi-dieu", "Humain", "Elfe", "Nain"};
-		JComboBox<String> liste_race = new JComboBox<String>(mes_races);
+		JComboBox<String> liste_race = new JComboBox<String>();
+		
+		for(AbstractRace race: mesRaces){
+			liste_race.addItem(race.getRace());
+		}
+		
 		this.add(liste_race);
 		liste_race.setBounds(lab.getWidth()+120, 0, 100, 25);
 		validate();
@@ -71,14 +84,19 @@ public class CreationPersonnage extends JFrame{
 		/*
 		 * Choix job
 		 */
+		//TODO: parcourir notre liste de Job pour ajouter leur nom dans la liste
 		JLabel label_job = new JLabel("Mon travail ne peut être que: ");
 		this.add(label_job);
-		label_job.setBounds(lab.getWidth()+20, 100, 220, 25);
+		label_job.setBounds(lab.getWidth() + 20, 100, 220, 25);
 
-		String[] mes_job = {"Chevalier", "Mage noir", "Sentinelle", "Berserker", "Archer"};
-		JComboBox<String> liste_job = new JComboBox<String>(mes_job);
+		JComboBox<String> liste_job = new JComboBox<String>();
+		
+		for(AbstractJob job: mesJob){
+			liste_job.addItem(job.getJob());
+		}
+		
 		this.add(liste_job);
-		liste_job.setBounds(lab.getWidth()+250, 100, 100, 25);
+		liste_job.setBounds(lab.getWidth() + 250, 100, 100, 25);
 		validate();
 	}
 	/*private static PluginManager pluginManager = new PluginManager();
@@ -86,6 +104,13 @@ public class CreationPersonnage extends JFrame{
 	private static FactoryAction actionFactory = (FactoryAction)pluginManager.getPlugin("Action");
 	private static ArrayList<Action> actions = new ArrayList<>();
 	*/
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		JFrame frame = new Salle(this, character, pluginMonster, pluginAction);
+		setVisible(false);
+	}
 
 	/**
 	 * @param args
