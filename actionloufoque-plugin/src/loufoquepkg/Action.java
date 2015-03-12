@@ -1,4 +1,4 @@
-package actionpkg;
+package loufoquepkg;
 
 import interfaces.*;
 
@@ -34,7 +34,6 @@ public abstract class Action extends AbstractAction{
 		// TODO Auto-generated method stub
 		return this.name;
 	}
-
 	
 	public void doAction(AbstractCharacter c, AbstractMonster m) {
 		if (this.getType()==TypeAction.Attack) {
@@ -43,7 +42,7 @@ public abstract class Action extends AbstractAction{
 		}
 		else {
 			System.out.println("Oulala! Je me protège");
-			c.setDefence(c.getDefence() + this.value);
+			c.setDefence(c.getDefence() + this.getValue());
 		}
 	}
 	

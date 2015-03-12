@@ -34,18 +34,14 @@ public abstract class Action extends AbstractAction{
 		// TODO Auto-generated method stub
 		return this.name;
 	}
-
-	@Override
-	public void setName(String n) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	public void doAction(AbstractCharacter c, AbstractMonster m) {
 		if (this.getType()==TypeAction.Attack) {
 			System.out.println("Bim! Attaque du monstre");
+			m.setLife(m.getLife() - this.getValue());
 		}
 		else {
+			System.out.println("Oulala! Je me protège");
 			c.setDefence(c.getDefence() + this.value);
 		}
 	}

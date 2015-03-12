@@ -1,0 +1,5 @@
+Name = LoufoquePlugin
+Description = Set d'actions loufoques
+MainClassName = App
+PackageName = loufoquepkg
+Service = Action
