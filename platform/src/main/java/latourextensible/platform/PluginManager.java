@@ -10,6 +10,8 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Properties;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import latourextensible.platform.event.*;
 
@@ -62,7 +64,9 @@ public class PluginManager extends URLClassLoader {
 	
 	public boolean addPlugin(URL pluginUrl) throws InvalidPluginPropertiesException, IOException {
 		this.addURL(pluginUrl);
-		InputStream fileStream = this.getResourceAsStream("plugin.prop");
+		ZipFile jar = new ZipFile(pluginUrl.getFile());
+		ZipEntry jarProp = jar.getEntry("plugin.prop");
+		InputStream fileStream = jar.getInputStream(jarProp);
 		if(fileStream == null) {
 			return false;
 		}
@@ -123,7 +127,6 @@ public class PluginManager extends URLClassLoader {
 				}
 			}
 		}
-		
 		this.plugins.put(newPlugin.getJarPath().toString(),newPlugin);
 		return true;
 	}
@@ -132,13 +135,11 @@ public class PluginManager extends URLClassLoader {
 		String path = (new File(jarPath)).getCanonicalPath();
 		ArrayList<PluginProperty> pluginsList = new ArrayList<PluginProperty>();
 		File dir = new File(path);
-		String[] jarList = dir.list();
-		/*String[] jarList = dir.list(new FilenameFilter() {
+		String[] jarList = dir.list(new FilenameFilter() {
 				public boolean accept(File dir, String filename) {
-					return true;
-					// TODO filter to have only jar file
+					return filename.substring(filename.length()-3).equalsIgnoreCase("jar");
 				}
-			});*/
+			});
 		URL jarUrl;
 		for(String jar : jarList) {
 			jarUrl = new URL("file://"+path+"/"+jar);

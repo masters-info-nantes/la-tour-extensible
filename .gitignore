@@ -1,2 +1,7 @@
 */target/*
 */.DS_Store
+*/.classpath
+*/.project
+*/*.class
+*/bin/*
+platform/plugins/*
