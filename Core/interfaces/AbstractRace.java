@@ -7,6 +7,9 @@ public abstract class AbstractRace {
 	protected int defence;
 	protected int life;
 
+	public final static String waitFromCore = "core.application.CREER_RACE_CREATED";
+	public final static String sendFromCore = "core.application.CREER_RACE";
+	
 	public AbstractRace(String r, int f, int d, int l){
 		this.race = r;
 		this.force = f;

@@ -1,4 +1,4 @@
 Name = Basic Core
-Type = Core
+Service = Core
 PackageName = application
 MainClassName = App

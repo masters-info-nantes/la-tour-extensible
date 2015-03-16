@@ -7,6 +7,28 @@ public abstract class AbstractCharacter {
 	protected int defence;
 	protected int life;
 	
+	protected AbstractJob job;
+	protected AbstractRace race;
+
+	public AbstractJob getJob() {
+		return job;
+	}
+
+	public void setJob(AbstractJob job) {
+		this.job = job;
+	}
+
+	public AbstractRace getRace() {
+		return race;
+	}
+
+	public void setRace(AbstractRace race) {
+		this.race = race;
+	}
+
+	public final static String waitFromCore = "core.application.CREER_CHARACTER_CREATED";
+	public final static String sendFromCore = "core.application.CREER_CHARACTER";
+	
 	public AbstractCharacter(String name, int force, int defence, int life) {
 		super();
 		this.name = name;

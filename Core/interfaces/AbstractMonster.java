@@ -6,6 +6,9 @@ public abstract class AbstractMonster {
 	protected int defence;
 	protected int life;
 	
+	public final static String waitFromCore = "core.application.CREER_MONSTRE_CREATED";
+	public final static String sendFromCore = "core.application.CREER_MONSTRE";
+	
 	public AbstractMonster(int force, int defence, int life) {
 		super();
 		this.force = force;

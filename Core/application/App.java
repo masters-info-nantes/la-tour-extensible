@@ -1,10 +1,16 @@
 package application;
 
-public class App {
+import latourextensible.platform.RunnablePlugin;
+import latourextensible.platform.event.*;
 
-	public static void main(String[] args) {
+public class App extends RunnablePlugin {
+
+	@Override
+	public void run() {
 		// TODO Auto-generated method stub
 		ChoixPlugin t = new ChoixPlugin();
+
 	}
+
 
 }

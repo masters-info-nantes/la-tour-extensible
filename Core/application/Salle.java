@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,10 +16,14 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import latourextensible.platform.event.Event;
+import latourextensible.platform.event.EventManager;
+import latourextensible.platform.event.IEventListener;
+
 import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 
-public class Salle extends JFrame implements ActionListener {
+public class Salle extends JFrame implements ActionListener , IEventListener{
 
 	private ImageIcon image;
 	private Image image2;
@@ -33,10 +38,22 @@ public class Salle extends JFrame implements ActionListener {
 	
 	public Salle(JFrame parent, AbstractCharacter character, String pluginMonsterChoix, String pluginActionChoix){
 		
+		//je veux recevoir
+		EventManager.getDefaultInstance().register(AbstractMonster.waitFromCore, this);
+		EventManager.getDefaultInstance().register(AbstractAction.waitFromCore, this);
+		
+		//je demande (j'envoie un event a la plateforme)
+		Event envoieEventMonstre = new Event(AbstractMonster.sendFromCore);
+		Event envoieEventAction = new Event(AbstractAction.sendFromCore);
+		
+		//e.addExtra(key, value); : pour les parametre
+		EventManager.getDefaultInstance().broadcast(envoieEventAction);
+		EventManager.getDefaultInstance().broadcast(envoieEventMonstre);
+		
+		
+		
 		creationPersonnage = parent;
 		this.character = character;
-		//TODO: demander a la plateforme un monstre
-		//TODO: demander a la plateforme les actions
 		
 		this.setTitle("Salle #");
 	    this.setSize(700, 650);
@@ -45,6 +62,7 @@ public class Salle extends JFrame implements ActionListener {
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);      
 	    this.setLayout(null);
 	    
+		waitEvents();
 
 		/*
 		* Image de fond
@@ -74,6 +92,21 @@ public class Salle extends JFrame implements ActionListener {
 	    this.setVisible(true);
 	}
 
+	private void waitEvents(){
+		// TODO Auto-generated method stub
+		int nb_secondes = 0;
+		while(mesActions == null && monster == null && nb_secondes<5){
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}//je verifie toutes les secondes
+			nb_secondes++;
+		}
+		
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
@@ -90,11 +123,30 @@ public class Salle extends JFrame implements ActionListener {
 	
 	public void changerSalle(){
 		//TODO: demander a la plateforme un monstre
+		this.monster = null;
+		Event envoieEventMonstre = new Event(AbstractMonster.sendFromCore);
+		EventManager.getDefaultInstance().broadcast(envoieEventMonstre);
+		waitEvents();
 	}
 	
 	public void partieFinie(){
 		this.creationPersonnage.setVisible(true);
 		this.dispose();
+	}
+
+	@Override
+	public void onEvent(Event arg0) {
+		// TODO Auto-generated method stub
+		String nomEvent = arg0.getAction();//nom evenement (actions, monstre ...)
+		if(nomEvent.equals(AbstractAction.waitFromCore)){
+			AbstractAction[] temp = (AbstractAction[]) arg0.getExtra("Action");
+			this.mesActions = new ArrayList<AbstractAction>(Arrays.asList(temp));
+		}
+		else if(nomEvent.equals(AbstractMonster.waitFromCore)){
+			this.monster = (AbstractMonster) arg0.getExtra("Monster");
+		}
+		//arg0.getatbleau
+		
 	}
 
 }

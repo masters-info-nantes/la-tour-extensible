@@ -3,12 +3,15 @@ package application;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.*;
 
+import latourextensible.platform.*;
 
-public class ChoixPlugin extends JFrame implements ActionListener {
+public class ChoixPlugin extends JFrame implements ActionListener{
+	
 		private JLabel titleLabel;
 		private JLabel raceLabel;
 		private JLabel jobLabel;
@@ -33,6 +36,8 @@ public class ChoixPlugin extends JFrame implements ActionListener {
 		
 		
 		  public ChoixPlugin(){
+			  
+			
 			    this.setTitle("Choix des plugins");
 			    this.setSize(700, 550);
 			    this.setLocationRelativeTo(null);
@@ -46,38 +51,18 @@ public class ChoixPlugin extends JFrame implements ActionListener {
 			    
 			    raceLabel = new JLabel("Plugins de races : ");
 			    raceList = new JComboBox<String>();
-			    raceList.addItem("Test1");
-			    raceList.addItem("Test2");
-			    raceList.addItem("Test3");
-			    raceList.addItem("Test4");
 			    
 			    jobLabel = new JLabel("Plugins de jobs : ");
 			    jobList = new JComboBox<String>();
-			    jobList.addItem("Test1");
-			    jobList.addItem("Test2");
-			    jobList.addItem("Test3");
-			    jobList.addItem("Test4");
 			    
 			    personLabel = new JLabel("Plugins de personnages : ");
 			    personList = new JComboBox<String>();
-			    personList.addItem("Test1");
-			    personList.addItem("Test2");
-			    personList.addItem("Test3");
-			    personList.addItem("Test4");
 			    
 			    actionLabel = new JLabel("Plugins d'actions : ");
 			    actionList = new JComboBox<String>();
-			    actionList.addItem("Test1");
-			    actionList.addItem("Test2");
-			    actionList.addItem("Test3");
-			    actionList.addItem("Test4");
 			    
 			    monsterLabel = new JLabel("Plugins de monstres : ");
 			    monsterList = new JComboBox<String>();
-			    monsterList.addItem("Test1");
-			    monsterList.addItem("Test2");
-			    monsterList.addItem("Test3");
-			    monsterList.addItem("Test4");
 			    
 			    raceRandom = new JButton("Random");
 			    jobRandom = new JButton("Random");
@@ -86,6 +71,7 @@ public class ChoixPlugin extends JFrame implements ActionListener {
 			    monsterRandom = new JButton("Random");
 			    
 			    valideButton = new JButton("OK");
+			    valideButton.setVisible(true);
 				
 				ActionListener mlis = new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -219,4 +205,5 @@ public class ChoixPlugin extends JFrame implements ActionListener {
 			  return rn.nextInt(nbItem);
 			  
 		  }
+
 }

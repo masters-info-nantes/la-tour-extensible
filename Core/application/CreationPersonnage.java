@@ -11,26 +11,44 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.*;
 
+import latourextensible.platform.PluginManager;
+import latourextensible.platform.PluginProperty;
+import latourextensible.platform.event.*;
 
-public class CreationPersonnage extends JFrame implements ActionListener {
+public class CreationPersonnage extends JFrame implements ActionListener, IEventListener{
 
 	private String pluginMonster;
 	private String pluginAction;
-	AbstractCharacter character;
+	
+	ArrayList<AbstractCharacter> mesCharacter;
 	ArrayList<AbstractJob> mesJob;
 	ArrayList<AbstractRace> mesRaces;
 	
+	JComboBox<String> liste_race;
+	JComboBox<String> liste_job;
+	JComboBox<String> listePersonnage;
+	
 	public CreationPersonnage(String pluginRaceChoix, String pluginJobChoix, String pluginCharacterChoix, String pluginMonsterChoix, String pluginActionChoix){
+		
 		super("Création personnage");
-
+		
+	  	/*List<PluginProperty> l = PluginManager.getDefaultInstance().getLoadablePlugins("Action");
+	  	//l.getname etc ..............
+	  	boolean t = PluginManager.getDefaultInstance().runPlugin(l.get(index));
+	  	//la je peux envoyer des event*/
+	  	
+		EventManager.getDefaultInstance().register(AbstractCharacter.waitFromCore, this);
+		EventManager.getDefaultInstance().register(AbstractJob.waitFromCore, this);
+		EventManager.getDefaultInstance().register(AbstractRace.waitFromCore, this);
+		
 		this.pluginMonster = pluginMonsterChoix;
 		this.pluginAction = pluginActionChoix;
 		
-		//TODO: demander a la plateforme les plugin monster, job et classe
-
 		WindowListener lis = new WindowAdapter() {
 			public void windowClosing(WindowEvent e){
 				System.exit(0);
@@ -45,13 +63,11 @@ public class CreationPersonnage extends JFrame implements ActionListener {
 		/*
 		 * Bouton pour appeller la fenetre de jeux
 		 */
-		JButton b = new JButton("Valider");
-		
-
-		b.addActionListener(this);		
-		this.add(b);
-		b.setBounds(490, 225, 100, 30);
-		
+		JButton jouer = new JButton("Valider");
+		jouer.addActionListener(this);		
+		this.add(jouer);
+		jouer.setBounds(490, 225, 100, 30);
+		jouer.setVisible(true);
 		/*
 		 * Image du personnage
 		 */
@@ -71,8 +87,8 @@ public class CreationPersonnage extends JFrame implements ActionListener {
 		this.add(label_race);
 		label_race.setBounds(lab.getWidth()+20, 0, 100, 25);
 
-		JComboBox<String> liste_race = new JComboBox<String>();
-		
+		liste_race = new JComboBox<String>();
+
 		for(AbstractRace race: mesRaces){
 			liste_race.addItem(race.getRace());
 		}
@@ -89,8 +105,8 @@ public class CreationPersonnage extends JFrame implements ActionListener {
 		this.add(label_job);
 		label_job.setBounds(lab.getWidth() + 20, 100, 220, 25);
 
-		JComboBox<String> liste_job = new JComboBox<String>();
-		
+		liste_job = new JComboBox<String>();
+
 		for(AbstractJob job: mesJob){
 			liste_job.addItem(job.getJob());
 		}
@@ -98,57 +114,72 @@ public class CreationPersonnage extends JFrame implements ActionListener {
 		this.add(liste_job);
 		liste_job.setBounds(lab.getWidth() + 250, 100, 100, 25);
 		validate();
+		
+		/*
+		 * Choix Personnage
+		 */
+		//TODO: parcourir notre liste de Job pour ajouter leur nom dans la liste
+		JLabel label_personnage = new JLabel("Je suis: ");
+		this.add(label_personnage);
+		label_personnage.setBounds(lab.getWidth() + 20, 200, 100, 25);
+
+		listePersonnage = new JComboBox<String>();
+
+		for(AbstractCharacter character: mesCharacter){
+			listePersonnage.addItem(character.getName());
+		}
+		
+		this.add(listePersonnage);
+		listePersonnage.setBounds(lab.getWidth()+100, 200, 100, 25);
+		validate();
 	}
-	/*private static PluginManager pluginManager = new PluginManager();
-	private static FactoryPersonnage charactersFactory = (FactoryPersonnage)pluginManager.getPlugin("Personnage");
-	private static FactoryAction actionFactory = (FactoryAction)pluginManager.getPlugin("Action");
-	private static ArrayList<Action> actions = new ArrayList<>();
-	*/
+
+	private void waitEvent() {
+		// TODO Auto-generated method stub
+		int nb_secondes = 0;
+		while(mesJob == null && mesCharacter == null && mesRaces == null && nb_secondes<5){
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}//je verifie toutes les secondes
+			nb_secondes++;
+		}
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		JFrame frame = new Salle(this, character, pluginMonster, pluginAction);
+		AbstractCharacter monCharacter = mesCharacter.get(listePersonnage.getSelectedIndex());
+		monCharacter.setRace(mesRaces.get(liste_race.getSelectedIndex()));
+		monCharacter.setJob(mesJob.get(liste_job.getSelectedIndex()));
+		
+		JFrame frame = new Salle(this, monCharacter, pluginMonster, pluginAction);
 		setVisible(false);
+	}
+
+	@Override
+	public void onEvent(Event arg0) {
+		// TODO Auto-generated method stub
+		String nomEvent = arg0.getAction();//nom evenement (actions, monstre ...)
+		if(nomEvent.equals(AbstractJob.waitFromCore)){
+			AbstractJob[] temp = (AbstractJob[]) arg0.getExtra("Job");
+			this.mesJob = new ArrayList<AbstractJob>(Arrays.asList(temp));
+		}
+		else if(nomEvent.equals(AbstractRace.waitFromCore)){
+			AbstractRace[] temp = (AbstractRace[]) arg0.getExtra("Race");
+			this.mesRaces = new ArrayList<AbstractRace>(Arrays.asList(temp));
+		}
+		else if(nomEvent.equals(AbstractCharacter.waitFromCore)){
+			AbstractCharacter[] temp = (AbstractCharacter[]) arg0.getExtra("Character");
+			this.mesCharacter = new ArrayList<AbstractCharacter>(Arrays.asList(temp));
+		}
+		//arg0.getatbleau
 	}
 
 	/**
 	 * @param args
 	 */
-	/*public static void main(String[] args) {
-		
-		JFrame frame = new CreationPersonnage();
-		
-		/*Personnage joueur;	
-		
-		System.out.println("Quel personnage voulez vous créer ? vous avez le choix entre " + charactersFactory.getNbPersonnage()+" personnages");
-		Scanner sc = new Scanner(System.in);
-		int numero_perso = sc.nextInt();
-		joueur = charactersFactory.make(numero_perso);
-		for(int i=0; i<actionFactory.getNbActions(); i++){
-			actions.add((Action) actionFactory.make(i));
-
-		}
-
-		boolean fini = false;
-		
-		while(!fini){
-			System.out.println("quelle action ? "+actionFactory.getNbActions()+" actions possible, entrer un nombre negatif pour finir");
-			int numero_action = sc.nextInt();
-			if(numero_action<0){
-				fini = true;
-			}
-			else if(numero_action>actions.size()){
-				System.out.println("eu non ca n'existe pas ...");
-			}
-			else{
-				actions.get(numero_action).doaction();		
-			}
-			
-			
-		}
-		
-
-	}*/
 
 }

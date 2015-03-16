@@ -5,14 +5,17 @@ public abstract class AbstractJob {
 	protected String job;
 	protected int force;
 	protected int defence;
-	protected int file;
+	protected int life;
+	
+	public final static String waitFromCore = "core.application.CREER_JOB_CREATED";
+	public final static String sendFromCore = "core.application.CREER_JOB";
 	
 	public AbstractJob(String job, int force, int defence, int file) {
 		super();
 		this.job = job;
 		this.force = force;
 		this.defence = defence;
-		this.file = file;
+		this.life = file;
 	}
 
 	public String getJob() {
@@ -39,12 +42,12 @@ public abstract class AbstractJob {
 		this.defence = defence;
 	}
 
-	public int getFile() {
-		return file;
+	public int getLife() {
+		return life;
 	}
 
-	public void setFile(int file) {
-		this.file = file;
+	public void setLife(int file) {
+		this.life = file;
 	}
 		
 	
