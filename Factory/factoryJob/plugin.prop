@@ -1,4 +1,4 @@
 Name = Job
 PackageName = factoryJob
 MainClassName = Main
-Services = Jobs
+Service = Jobs

@@ -1,4 +1,4 @@
 Name = Character
 PackageName = factoryCharacter
 MainClassName = Main
-Services = Characters
+Service = Characters

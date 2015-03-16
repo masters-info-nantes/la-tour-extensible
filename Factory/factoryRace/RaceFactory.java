@@ -23,7 +23,7 @@ public class RaceFactory implements InterfaceRaceFactory {
 		AbstractRace r = new Race(race[i].getRace(), race[i].getForce(), race[i].getDefence(), race[i].getLife());
 		return r;
 	}
-			
+				
 	public AbstractRace[] getList(){
 		return race;
 	}

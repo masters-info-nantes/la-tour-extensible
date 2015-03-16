@@ -2,7 +2,6 @@ package factoryCharacter;
 
 import factoryCharacter.Character;
 import interfaces.AbstractCharacter;
-import interfaces.AbstractJob;
 
 public class CharacterFactory{
 	Character[] person;

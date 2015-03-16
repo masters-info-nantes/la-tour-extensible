@@ -1,7 +1,6 @@
 package factoryJob;
 
 import interfaces.AbstractJob;
-import interfaces.AbstractMonster;
 
 public class JobFactory implements InterfaceJobFactory {
 
