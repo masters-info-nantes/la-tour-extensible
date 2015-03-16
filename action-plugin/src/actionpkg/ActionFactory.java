@@ -1,7 +1,5 @@
 package actionpkg;
 
-import java.util.ArrayList;
-
 public class ActionFactory {
 
 	int nbAction;

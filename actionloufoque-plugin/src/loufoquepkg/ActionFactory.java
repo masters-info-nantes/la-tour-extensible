@@ -1,6 +1,5 @@
 package loufoquepkg;
 
-
 public class ActionFactory {
 	
 	int nbAction;

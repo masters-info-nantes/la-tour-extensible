@@ -38,11 +38,13 @@ public abstract class Action extends AbstractAction{
 	public void doAction(AbstractCharacter c, AbstractMonster m) {
 		if (this.getType()==TypeAction.Attack) {
 			System.out.println("Bim! Attaque du monstre");
-			m.setLife(m.getLife() - this.getValue());
+			int attack = this.getValue() + c.getJob().getForce() + c.getRace().getForce();
+			m.setLife(m.getLife() - attack);
 		}
 		else {
 			System.out.println("Oulala! Je me protège");
-			c.setDefence(c.getDefence() + this.value);
+			int def =  this.getValue() + c.getDefence() + c.getJob().getDefence() + c.getRace().getDefence();
+			c.setDefence(def);
 		}
 	}
 	
