@@ -14,7 +14,7 @@ public class PluginProperty {
 	private ArrayList<String> dependancies;
 	private ArrayList<String> options;
 
-	private boolean instanciate;
+	private RunnablePlugin instance;
 
 	public PluginProperty(String name, String description, String service, String packageName, String mainClassName, URL jarPath) {
 		this.name = name;
@@ -26,7 +26,7 @@ public class PluginProperty {
 		this.dependancies = new ArrayList<String>();
 		this.options = new ArrayList<String>();
 
-		this.instanciate = false;
+		this.instance = null;
 	}
 
 	public PluginProperty(URL jarPath) {
@@ -65,8 +65,12 @@ public class PluginProperty {
 		return this.options;
 	}
 
-	public boolean getInstanciate() {
-		return this.instanciate;
+	RunnablePlugin getInstance() {
+		return this.instance;
+	}
+
+	public boolean isInstanciate() {
+		return this.instance != null;
 	}
 
 
@@ -98,8 +102,8 @@ public class PluginProperty {
 		this.options.add(option);
 	}
 
-	public void setInstanciate(boolean instanciate) {
-		this.instanciate = instanciate;
+	void setInstance(RunnablePlugin plugin) {
+		this.instance = plugin;
 	}
 
 

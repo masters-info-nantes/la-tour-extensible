@@ -14,6 +14,11 @@ public class Logger extends RunnablePlugin implements IEventListener {
 		EventManager.getDefaultInstance().register(EventManager.EVENT_ALL_BROADCAST,this);
 	}
 	
+	public void onStop() {
+		EventManager.getDefaultInstance().unregister(EventManager.EVENT_ALL_BROADCAST,this);
+		System.out.println("Logger Stoped");
+	}
+	
 	public void onEvent(Event event) {
 		System.out.println("================ New Event ================");
 		System.out.println(event.toString());

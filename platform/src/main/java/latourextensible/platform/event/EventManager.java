@@ -1,6 +1,7 @@
 package latourextensible.platform.event;
 
 import java.lang.String;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -36,7 +37,7 @@ public class EventManager {
 		return EventManager.instance;
 	}
 
-	/** Registers an object to receive broadcast event for one {@code Event} action
+	/** Registers an object to receive broadcast event for one {@code Event}'s action
 	 * @param action The action of wanted {@code Event}
 	 * @param o Listener you wanted to register
 	 */
@@ -49,6 +50,41 @@ public class EventManager {
 		list.add(o);
 	}
 
+	/** Unregisters an object that receive broadcast event for one {@code Event}'s action
+	 * @param action The action of wanted {@code Event}
+	 * @param o Listener you wanted to unregister
+	 * 
+	 * @return {@code true} if listener was unregistered, {@code false} otherwise.
+	 */
+	public synchronized boolean unregister(String action, IEventListener o) {
+		ArrayList<IEventListener> list = this.listeners.get(action);
+		if(list == null) {
+			return false;
+		}
+		if(list.remove(o)) {
+			return true;
+		}
+		return false;
+	}
+	
+	/** Unregisters an object that receive broadcast event for all {@code Event}'s actions
+	 * Note: Prefer usage of {@link #unregister(String, IEventListener) unregister(String, IEventListener)}, for performance reasons.
+	 * @param o Listener you wanted to unregister
+	 * 
+	 * @return List of action for which listener was unregistered.
+	 */
+	public synchronized List<String> unregister(IEventListener o) {
+		List<String> list = new ArrayList<String>();
+		for(String action : this.listeners.keySet()) {
+			if(this.listeners.get(action).contains(o)) {
+				if(this.unregister(action,o)) {
+					list.add(action);
+				}
+			}
+		}
+		return list;
+	}
+	
 	/** Sends an {@code Event} to specify object
 	 * @param recipient The listener to which you want to send the {@code Event}
 	 * @param e The {@code Event} you wanted to send

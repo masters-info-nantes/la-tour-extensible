@@ -19,6 +19,18 @@ public class Platform {
 		}
 		pluginMgr.addPluginsPath("./plugins");
 		
+		// Debugs
+		List<PluginProperty> debugs = pluginMgr.getLoadablePlugins("Debug");
+		if(debugs.isEmpty()) {
+			System.out.println("No \"Debug\" plugin found");
+		} else {
+			for(PluginProperty pp : debugs) {
+				if(!pluginMgr.runPlugin(pp)) {
+					System.out.println("Plugin \""+pp.getName()+"\" cannot be started");
+				}
+			}
+		}
+		
 		// Cores
 		List<PluginProperty> cores = pluginMgr.getLoadablePlugins("Core");
 		if(cores.isEmpty()) {
@@ -64,18 +76,6 @@ public class Platform {
 			PluginProperty ppCoreChoosed = cores.get(coreChoosed-1);// -1 => plugin printed with number 1 -> numberOfPlugin
 			if(!pluginMgr.runPlugin(ppCoreChoosed)) {
 				System.out.println("Plugin \""+ppCoreChoosed.getName()+"\" cannot be started");
-			}
-		}
-		
-		// Debugs
-		List<PluginProperty> debugs = pluginMgr.getLoadablePlugins("Debug");
-		if(debugs.isEmpty()) {
-			System.out.println("No \"Debug\" plugin found");
-		} else {
-			for(PluginProperty pp : debugs) {
-				if(!pluginMgr.runPlugin(pp)) {
-					System.out.println("Plugin \""+pp.getName()+"\" cannot be started");
-				}
 			}
 		}
 		

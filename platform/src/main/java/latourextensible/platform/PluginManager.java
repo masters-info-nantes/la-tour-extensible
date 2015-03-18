@@ -51,15 +51,35 @@ public class PluginManager extends URLClassLoader {
 		return ret;
 	}
 	
-	public boolean runPlugin(PluginProperty p) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+	public boolean runPlugin(PluginProperty p) throws ClassNotFoundException, IllegalAccessException, InstantiationException, PluginAlreadyInstantiateException {
+		if(p.isInstanciate()) {
+			throw new PluginAlreadyInstantiateException();
+		}
 		Class<?> cl = Class.forName(p.getPackageName()+"."+p.getMainClassName(),false, this);// ClassNotFoundException
-		// TODO correct "false" with isAssignableFrom
-		RunnablePlugin pluginInstance = (RunnablePlugin)cl.newInstance();// InstantiationException IllegalAccessException
+		if(!RunnablePlugin.class.isAssignableFrom(cl)) {
+			return false;
+		}
+		Object tmpInstance = cl.newInstance();// InstantiationException IllegalAccessException
+		if(tmpInstance == null) {
+			return false;
+		}
+		RunnablePlugin pluginInstance = (RunnablePlugin)tmpInstance;
 		pluginInstance.run();// start new thread
+		p.setInstance(pluginInstance);
 		Event eventOk = new Event(PluginManager.ACTION_PLUGIN_LOADED);
 		eventOk.addExtra(PluginManager.EXTRA_PLUGIN_PROPERTY,p);
 		EventManager.getDefaultInstance().broadcast(eventOk);
 		return true;
+	}
+	
+	public boolean stopPlugin(PluginProperty p) {
+		if(!p.isInstanciate()) {
+			return false;
+		}
+		RunnablePlugin pInst = p.getInstance();
+		pInst.end();
+		p.setInstance(null);
+		return !p.isInstanciate();
 	}
 	
 	public boolean addPlugin(URL pluginUrl) throws InvalidPluginPropertiesException, IOException {
@@ -73,7 +93,7 @@ public class PluginManager extends URLClassLoader {
 		
 		Properties props = new Properties();
 		props.load(fileStream);// IOException
-		PluginProperty newPlugin = new PluginProperty(pluginUrl);// TODO ensure property is set
+		PluginProperty newPlugin = new PluginProperty(pluginUrl);
 		Object prop;
 		prop = props.get("Name");
 		if(prop != null) {
