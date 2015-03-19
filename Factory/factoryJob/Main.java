@@ -26,5 +26,10 @@ public class Main extends RunnablePlugin implements IEventListener{
 		}
 	}
 
+	public void onStop() {
+		// TODO Auto-generated method stub
+		EventManager.getDefaultInstance().unregister(AbstractJob.sendFromCore, this);
+	}
+
 }
 
