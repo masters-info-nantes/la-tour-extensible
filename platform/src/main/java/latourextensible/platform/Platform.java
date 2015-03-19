@@ -47,8 +47,10 @@ public class Platform {
 			for(int i=0;i<cores.size();i++) {
 				PluginProperty p = cores.get(i);
 				System.out.println("["+(i+1)+"] "+p.getName());
-				if(!p.getDescription().isEmpty()) {
+				if(p.getDescription() != null) {
 					System.out.println(p.getDescription());
+				} else {
+					System.out.println("no description.");
 				}
 				System.out.println("");
 			}

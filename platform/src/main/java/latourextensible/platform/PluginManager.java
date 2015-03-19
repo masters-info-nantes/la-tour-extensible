@@ -84,6 +84,7 @@ public class PluginManager extends URLClassLoader {
 	
 	public boolean addPlugin(URL pluginUrl) throws InvalidPluginPropertiesException, IOException {
 		this.addURL(pluginUrl);
+		System.out.println("addPlugin "+pluginUrl);
 		ZipFile jar = new ZipFile(pluginUrl.getFile());
 		ZipEntry jarProp = jar.getEntry("plugin.prop");
 		InputStream fileStream = jar.getInputStream(jarProp);
@@ -162,6 +163,7 @@ public class PluginManager extends URLClassLoader {
 			});
 		URL jarUrl;
 		for(String jar : jarList) {
+			System.out.println("file://"+path+"/"+jar);
 			jarUrl = new URL("file://"+path+"/"+jar);
 			if(this.plugins.containsKey(jarUrl.toString())) {
 				continue;
