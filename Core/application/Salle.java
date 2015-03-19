@@ -16,6 +16,9 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import latourextensible.platform.PluginAlreadyInstantiateException;
+import latourextensible.platform.PluginManager;
+import latourextensible.platform.PluginProperty;
 import latourextensible.platform.event.Event;
 import latourextensible.platform.event.EventManager;
 import latourextensible.platform.event.IEventListener;
@@ -36,7 +39,26 @@ public class Salle extends JFrame implements ActionListener , IEventListener{
 	private AbstractMonster monster;
 	private JFrame creationPersonnage;
 	
-	public Salle(JFrame parent, AbstractCharacter character, String pluginMonsterChoix, String pluginActionChoix){
+	PluginProperty pluginAction;
+	PluginProperty pluginMonstre;
+	
+	PluginManager pluginMgr;
+
+	public Salle(JFrame parent, AbstractCharacter character, PluginProperty pluginMonsterChoix, PluginProperty pluginActionChoix){
+		
+		this.pluginAction = pluginActionChoix;
+		this.pluginMonstre = pluginMonsterChoix;
+		
+		pluginMgr = PluginManager.getDefaultInstance();
+		
+		try {
+			boolean actionRun = pluginMgr.runPlugin(pluginActionChoix);
+			boolean monstreRun = pluginMgr.runPlugin(pluginMonsterChoix);
+		} catch (ClassNotFoundException | IllegalAccessException
+				| InstantiationException | PluginAlreadyInstantiateException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		//je veux recevoir
 		EventManager.getDefaultInstance().register(AbstractMonster.waitFromCore, this);
@@ -130,6 +152,10 @@ public class Salle extends JFrame implements ActionListener , IEventListener{
 	}
 	
 	public void partieFinie(){
+		
+		pluginMgr.stopPlugin(pluginAction);
+		pluginMgr.stopPlugin(pluginMonstre);
+		
 		this.creationPersonnage.setVisible(true);
 		this.dispose();
 	}

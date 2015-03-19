@@ -16,14 +16,15 @@ import java.util.List;
 
 import javax.swing.*;
 
+import latourextensible.platform.PluginAlreadyInstantiateException;
 import latourextensible.platform.PluginManager;
 import latourextensible.platform.PluginProperty;
 import latourextensible.platform.event.*;
 
 public class CreationPersonnage extends JFrame implements ActionListener, IEventListener{
 
-	private String pluginMonster;
-	private String pluginAction;
+	private PluginProperty pluginMonster;
+	private PluginProperty pluginAction;
 	
 	ArrayList<AbstractCharacter> mesCharacter;
 	ArrayList<AbstractJob> mesJob;
@@ -33,13 +34,24 @@ public class CreationPersonnage extends JFrame implements ActionListener, IEvent
 	JComboBox<String> liste_job;
 	JComboBox<String> listePersonnage;
 	
-	public CreationPersonnage(String pluginRaceChoix, String pluginJobChoix, String pluginCharacterChoix, String pluginMonsterChoix, String pluginActionChoix){
+	public CreationPersonnage(PluginProperty pluginRaceChoix, PluginProperty pluginJobChoix, PluginProperty pluginCharacterChoix, PluginProperty pluginMonsterChoix, PluginProperty pluginActionChoix){
 		
 		super("Création personnage");
 		
-	  	/*List<PluginProperty> l = PluginManager.getDefaultInstance().getLoadablePlugins("Action");
-	  	//l.getname etc ..............
-	  	boolean t = PluginManager.getDefaultInstance().runPlugin(l.get(index));
+		PluginManager pluginMgr = PluginManager.getDefaultInstance();
+		
+		try {
+			boolean raceRun = pluginMgr.runPlugin(pluginRaceChoix);
+			boolean jobRun = pluginMgr.runPlugin(pluginJobChoix);
+			boolean characterRun = pluginMgr.runPlugin(pluginCharacterChoix);
+		} catch (ClassNotFoundException | IllegalAccessException
+				| InstantiationException | PluginAlreadyInstantiateException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+	  	
+	  	
 	  	//la je peux envoyer des event*/
 	  	
 		EventManager.getDefaultInstance().register(AbstractCharacter.waitFromCore, this);

@@ -32,7 +32,13 @@ public class ChoixPlugin extends JFrame implements ActionListener{
 		private JButton monsterRandom;
 		private JButton valideButton;
 		
-		
+		PluginManager pluginMgr;
+		List<PluginProperty> actions;
+		List<PluginProperty> monstres;
+		List<PluginProperty> characters;
+		List<PluginProperty> jobs;
+		List<PluginProperty> races;
+
 		
 		
 		  public ChoixPlugin(){
@@ -44,7 +50,9 @@ public class ChoixPlugin extends JFrame implements ActionListener{
 			    this.setResizable(false);
 			    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);      
 	  
-			   // this.setLayout(new GridLayout(11,2));
+			    pluginMgr = PluginManager.getDefaultInstance(); 
+			   
+			    // this.setLayout(new GridLayout(11,2));
 			    this.setLayout(null);
 			    
 			    titleLabel = new JLabel("Choisissez les plugins à charger :");
@@ -75,8 +83,7 @@ public class ChoixPlugin extends JFrame implements ActionListener{
 				
 				ActionListener mlis = new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						//TODO: demander à la plateforme de charger un core si different de celui courant
-						JFrame frame = new CreationPersonnage(raceList.getSelectedItem().toString(), jobList.getSelectedItem().toString(), personList.getSelectedItem().toString(), monsterList.getSelectedItem().toString(), actionList.getSelectedItem().toString());
+						JFrame frame = new CreationPersonnage(races.get(raceList.getSelectedIndex()), jobs.get(jobList.getSelectedIndex()), characters.get(personList.getSelectedIndex()), monstres.get(monsterList.getSelectedIndex()), actions.get(actionList.getSelectedIndex()));
 						setVisible(false);
 					}
 				};
@@ -125,19 +132,41 @@ public class ChoixPlugin extends JFrame implements ActionListener{
 			    /* liste race */
 			    raceList.setBounds(100, 80, 200, 30);
 			    
+				races = pluginMgr.getLoadablePlugins("Races");
+				for(PluginProperty prop:races){
+					raceList.addItem(prop.getName());
+				}   
+			    
 			    /*liste job */
 			    jobList.setBounds(100, 155, 200, 30);
 			    
+				jobs = pluginMgr.getLoadablePlugins("Jobs");
+				for(PluginProperty prop:jobs){
+					jobList.addItem(prop.getName());
+				}  
+				
 			    /* liste Personnages */
 			    personList.setBounds(100, 230, 200, 30);
 			    
+				characters = pluginMgr.getLoadablePlugins("Characters");
+				for(PluginProperty prop:characters){
+					personList.addItem(prop.getName());
+				}  
+				
 			    /* liste Action */
 			    actionList.setBounds(100, 305, 200, 30);
+				actions = pluginMgr.getLoadablePlugins("Action");
+				for(PluginProperty prop:actions){
+					actionList.addItem(prop.getName());
+				}
 			    
 			    /* liste Monstre */
 			    monsterList.setBounds(100, 380, 200, 30);
 			    
-			    
+				monstres = pluginMgr.getLoadablePlugins("Monsters");
+				for(PluginProperty prop:monstres){
+					monsterList.addItem(prop.getName());
+				}			    
 			    
 			    
 			    //////////////////////Boutons /////////////////////////	
