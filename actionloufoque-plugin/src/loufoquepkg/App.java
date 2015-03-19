@@ -21,4 +21,10 @@ public class App extends RunnablePlugin implements IEventListener {
 		}
 	}
 
+	@Override
+	public void onStop() {
+		// TODO Auto-generated method stub
+		EventManager.getDefaultInstance().unregister(AbstractAction.sendFromCore, this);	
+	}
+
 }
