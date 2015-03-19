@@ -133,6 +133,7 @@ public class Salle extends JFrame implements ActionListener , IEventListener{
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		AbstractAction action = mesActions.get(actionList.getSelectedIndex());
+		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa             "+this.monster + "               "+this.character);
 		action.doAction(this.character, this.monster);
 		
 		if(this.monster.getLife()<0){

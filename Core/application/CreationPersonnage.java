@@ -1,7 +1,9 @@
 package application;
 
+import interfaces.AbstractAction;
 import interfaces.AbstractCharacter;
 import interfaces.AbstractJob;
+import interfaces.AbstractMonster;
 import interfaces.AbstractRace;
 
 import java.awt.Image;
@@ -57,6 +59,17 @@ public class CreationPersonnage extends JFrame implements ActionListener, IEvent
 		EventManager.getDefaultInstance().register(AbstractCharacter.waitFromCore, this);
 		EventManager.getDefaultInstance().register(AbstractJob.waitFromCore, this);
 		EventManager.getDefaultInstance().register(AbstractRace.waitFromCore, this);
+		
+		//je demande (j'envoie un event a la plateforme)
+		Event envoieEventCharacter = new Event(AbstractCharacter.sendFromCore);
+		Event envoieEventJob = new Event(AbstractJob.sendFromCore);
+		Event envoieEventRace = new Event(AbstractRace.sendFromCore);
+		
+		//e.addExtra(key, value); : pour les parametre
+		EventManager.getDefaultInstance().broadcast(envoieEventCharacter);
+		EventManager.getDefaultInstance().broadcast(envoieEventJob);
+		EventManager.getDefaultInstance().broadcast(envoieEventRace);
+		
 		
 		this.pluginMonster = pluginMonsterChoix;
 		this.pluginAction = pluginActionChoix;
