@@ -35,6 +35,13 @@ public class Main extends RunnablePlugin implements IEventListener{
 		
 	}
 
+	@Override
+	public void onStop() {
+		// TODO Auto-generated method stub
+		EventManager.getDefaultInstance().unregister(AbstractMonster.sendFromCore, this);
+		
+	}
+
 }
 
 
