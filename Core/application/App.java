@@ -15,6 +15,7 @@ public class App extends RunnablePlugin {
 	@Override
 	public void onStop() {
 		// TODO Auto-generated method stub
+		//NOTHING TO DO
 		
 	}
 

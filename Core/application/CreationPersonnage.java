@@ -67,6 +67,8 @@ public class CreationPersonnage extends JFrame implements ActionListener, IEvent
 			}
 		};
 		
+		waitEvent();
+		
 		addWindowListener(lis);
 		setSize(600,310);
 		setVisible(true);

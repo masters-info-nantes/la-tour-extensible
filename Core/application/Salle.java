@@ -155,7 +155,8 @@ public class Salle extends JFrame implements ActionListener , IEventListener{
 		
 		pluginMgr.stopPlugin(pluginAction);
 		pluginMgr.stopPlugin(pluginMonstre);
-		
+		EventManager.getDefaultInstance().unregister(AbstractMonster.waitFromCore, this);
+		EventManager.getDefaultInstance().unregister(AbstractAction.waitFromCore, this);
 		this.creationPersonnage.setVisible(true);
 		this.dispose();
 	}
@@ -170,9 +171,7 @@ public class Salle extends JFrame implements ActionListener , IEventListener{
 		}
 		else if(nomEvent.equals(AbstractMonster.waitFromCore)){
 			this.monster = (AbstractMonster) arg0.getExtra("Monster");
-		}
-		//arg0.getatbleau
-		
+		}		
 	}
 
 }
