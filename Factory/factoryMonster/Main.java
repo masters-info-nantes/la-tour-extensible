@@ -27,6 +27,7 @@ public class Main extends RunnablePlugin implements IEventListener{
 		if (event.getAction() == AbstractMonster.sendFromCore)
 		{
 				i = (random.nextInt())%monsterF.getSize();
+				i = Math.abs(i);
 				AbstractMonster m = monsterF.make(i);
 				Event e = new Event(AbstractMonster.waitFromCore);
 				e.addExtra("Monster",m);
