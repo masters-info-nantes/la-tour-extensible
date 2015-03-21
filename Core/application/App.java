@@ -8,8 +8,7 @@ public class App extends RunnablePlugin {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		ChoixPlugin t = new ChoixPlugin();
-
+		new ChoixPlugin();
 	}
 
 	@Override

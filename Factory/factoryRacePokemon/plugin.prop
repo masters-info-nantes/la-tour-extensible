@@ -1,0 +1,4 @@
+Name = Race
+PackageName = factoryRacePokemon
+MainClassName = Main
+Service = Races

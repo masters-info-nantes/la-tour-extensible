@@ -1,0 +1,4 @@
+Name = Job
+PackageName = factoryJobPokemon
+MainClassName = Main
+Service = Jobs

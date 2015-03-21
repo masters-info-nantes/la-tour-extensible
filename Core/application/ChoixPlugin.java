@@ -49,11 +49,9 @@ public class ChoixPlugin extends JFrame implements ActionListener{
 			    this.setLocationRelativeTo(null);
 			    this.setResizable(false);
 			    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);      
-	  
-			    pluginMgr = PluginManager.getDefaultInstance(); 
-			   
-			    // this.setLayout(new GridLayout(11,2));
 			    this.setLayout(null);
+
+			    pluginMgr = PluginManager.getDefaultInstance(); 
 			    
 			    titleLabel = new JLabel("Choisissez les plugins à charger :");
 			    
@@ -83,8 +81,7 @@ public class ChoixPlugin extends JFrame implements ActionListener{
 				
 				ActionListener mlis = new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						JFrame frame = new CreationPersonnage(races.get(raceList.getSelectedIndex()), jobs.get(jobList.getSelectedIndex()), characters.get(personList.getSelectedIndex()), monstres.get(monsterList.getSelectedIndex()), actions.get(actionList.getSelectedIndex()));
-						setVisible(false);
+
 					}
 				};
 				valideButton.addActionListener(mlis);
@@ -128,7 +125,7 @@ public class ChoixPlugin extends JFrame implements ActionListener{
 			    
 			    
 			    ////////////////////// Listes /////////////////////////	
-			    
+
 			    /* liste race */
 			    raceList.setBounds(100, 80, 200, 30);
 			    
@@ -209,6 +206,7 @@ public class ChoixPlugin extends JFrame implements ActionListener{
 			    this.getContentPane().add(valideButton);
 			    this.setVisible(true);
 		  }
+		  
 		  public void actionPerformed(ActionEvent e) {
 				Object source = e.getSource();
 		 
@@ -223,7 +221,8 @@ public class ChoixPlugin extends JFrame implements ActionListener{
 				} else if(source == monsterRandom){
 					monsterList.setSelectedIndex(randList(monsterList));
 				} else if(source == valideButton){
-					
+					new CreationPersonnage(this, races.get(raceList.getSelectedIndex()), jobs.get(jobList.getSelectedIndex()), characters.get(personList.getSelectedIndex()), monstres.get(monsterList.getSelectedIndex()), actions.get(actionList.getSelectedIndex()));
+					setVisible(false);
 				}
 				
 			}

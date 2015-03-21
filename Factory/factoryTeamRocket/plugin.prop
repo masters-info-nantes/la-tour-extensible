@@ -1,0 +1,4 @@
+Name = Team rocket
+PackageName = factoryTeamRocket
+MainClassName = Main
+Service = Monsters

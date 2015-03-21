@@ -9,12 +9,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JProgressBar;
 
 import latourextensible.platform.PluginAlreadyInstantiateException;
 import latourextensible.platform.PluginManager;
@@ -23,14 +25,13 @@ import latourextensible.platform.event.Event;
 import latourextensible.platform.event.EventManager;
 import latourextensible.platform.event.IEventListener;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
-
 
 public class Salle extends JFrame implements ActionListener , IEventListener{
 
-	private ImageIcon image;
-	private Image image2;
-	private JLabel lab;
+	private JLabel background;
+	private JLabel image_character;
+	private JLabel image_monster;
+
 	private JComboBox<String> actionList;
 	private JButton actionButton;
 	
@@ -39,15 +40,21 @@ public class Salle extends JFrame implements ActionListener , IEventListener{
 	private AbstractMonster monster;
 	private JFrame creationPersonnage;
 	
+	PluginProperty difficultee;
+	
 	PluginProperty pluginAction;
 	PluginProperty pluginMonstre;
 	
 	PluginManager pluginMgr;
+	
+	JProgressBar vieCharacter;
+	JProgressBar vieMonster;
 
-	public Salle(JFrame parent, AbstractCharacter character, PluginProperty pluginMonsterChoix, PluginProperty pluginActionChoix){
+	public Salle(JFrame parent, AbstractCharacter character, PluginProperty pluginMonsterChoix, PluginProperty pluginActionChoix, PluginProperty diff){
 		
 		this.pluginAction = pluginActionChoix;
 		this.pluginMonstre = pluginMonsterChoix;
+		this.difficultee = diff;
 		
 		pluginMgr = PluginManager.getDefaultInstance();
 		
@@ -65,9 +72,13 @@ public class Salle extends JFrame implements ActionListener , IEventListener{
 		EventManager.getDefaultInstance().register(AbstractAction.waitFromCore, this);
 		
 		//je demande (j'envoie un event a la plateforme)
-		Event envoieEventMonstre = new Event(AbstractMonster.sendFromCore);
+
+
+
 		Event envoieEventAction = new Event(AbstractAction.sendFromCore);
-		
+		Event envoieEventMonstre = new Event(AbstractMonster.sendFromCore);
+		envoieEventMonstre.addExtra("IA", difficultee);
+
 		//e.addExtra(key, value); : pour les parametre
 		EventManager.getDefaultInstance().broadcast(envoieEventAction);
 		EventManager.getDefaultInstance().broadcast(envoieEventMonstre);
@@ -89,14 +100,45 @@ public class Salle extends JFrame implements ActionListener , IEventListener{
 		/*
 		* Image de fond
 		*/
-		image = new ImageIcon("/comptes/E120404Z/workspace/testLogExten/rendu_decorjeu1.jpg");
-		Image image2 = image.getImage().getScaledInstance(image.getIconWidth(), image.getIconHeight(), Image.SCALE_DEFAULT);
+		Random r = new Random();
+		int rand = Math.abs(r.nextInt()%19);
+		ImageIcon image = new ImageIcon(this.getClass().getResource("/images/fond"+rand+".png"));
+		float t  = (float) (700.0/image.getIconWidth());
+
+		Image image2 = image.getImage().getScaledInstance(Math.round(image.getIconWidth()*t), 400, Image.SCALE_DEFAULT);
 		image.setImage(image2);
-		lab = new JLabel();
-		lab.setIcon(image);
-		this.add(lab);
-		lab.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());
-	    
+		background = new JLabel();
+		background.setIcon(image);
+		background.setBounds(0, 0, image.getIconWidth(), 400);
+		/*
+		 * Image du character
+		 */
+		
+		image = new ImageIcon(monster.getClass().getResource(monster.getChemin_sprite()));
+		t  = (float) (200.0/image.getIconHeight());
+		image2 = image.getImage().getScaledInstance(Math.round(image.getIconWidth()*t), Math.round(image.getIconHeight()*t), Image.SCALE_DEFAULT);
+		image.setImage(image2);
+		
+	    image_monster = new JLabel();
+	    image_monster.setIcon(image);
+		this.add(image_monster);
+		image_monster.setBounds(background.getWidth()-image.getIconWidth()-10, background.getHeight()-image.getIconHeight(), image.getIconWidth(), image.getIconHeight());
+		
+		
+		image = new ImageIcon(character.getClass().getResource(character.getChemin_sprite()));
+		t  = (float) (200.0/image.getIconHeight());
+		image2 = image.getImage().getScaledInstance(Math.round(image.getIconWidth()*t), Math.round(image.getIconHeight()*t), Image.SCALE_DEFAULT);
+		image.setImage(image2);
+		
+	    image_character = new JLabel();
+		image_character.setIcon(image);
+		this.add(image_character);
+		image_character.setBounds(10, background.getHeight()-image.getIconHeight(), image.getIconWidth(), image.getIconHeight());
+				
+		
+		this.add(background);
+
+		
 		actionList = new JComboBox<String>();
 		actionList.setBounds(30, 530, 200, 30);
 		
@@ -106,11 +148,24 @@ public class Salle extends JFrame implements ActionListener , IEventListener{
 		
 		actionButton = new JButton("Exec");
 		actionButton.setBounds(450, 530, 200, 30);
-		actionButton.addActionListener(this);		
+		actionButton.addActionListener(this);	
 
 		
 		this.add(actionList);
 		this.add(actionButton);
+		
+		vieMonster = new JProgressBar();
+		vieMonster.setMaximum(monster.getLife());
+		vieMonster.setValue(monster.getLife());
+		vieMonster.setBounds(background.getWidth()-210, background.getHeight()+10, 200, 20);
+		
+		vieCharacter = new JProgressBar();
+		vieCharacter.setMaximum(character.getLife());
+		vieCharacter.setValue(character.getLife());
+		vieCharacter.setBounds(10, background.getHeight()+10, 200, 20);
+		
+		this.add(vieMonster);
+		this.add(vieCharacter);
 	    this.setVisible(true);
 	}
 
@@ -134,21 +189,53 @@ public class Salle extends JFrame implements ActionListener , IEventListener{
 		// TODO Auto-generated method stub
 		AbstractAction action = mesActions.get(actionList.getSelectedIndex());
 		action.doAction(this.character, this.monster);
-		
+		vieMonster.setValue(monster.getLife());
 		if(this.monster.getLife()<0){
 			changerSalle();
 		}
 		if(this.character.getLife()<0){
 			partieFinie();			
 		}
+		
+
+		
 	}
 	
 	public void changerSalle(){
 		//TODO: demander a la plateforme un monstre
+		Random r = new Random();
+		int rand = Math.abs(r.nextInt()%19);
+		ImageIcon image = new ImageIcon(this.getClass().getResource("/images/fond"+rand+".png"));
+		float t  = (float) (700.0/image.getIconWidth());
+
+		Image image2 = image.getImage().getScaledInstance(Math.round(image.getIconWidth()*t), 400, Image.SCALE_DEFAULT);
+		image.setImage(image2);
+		background.setIcon(image);
+		
+		
+
+		this.invalidate();
 		this.monster = null;
 		Event envoieEventMonstre = new Event(AbstractMonster.sendFromCore);
+		envoieEventMonstre.addExtra("IA", difficultee);
+
 		EventManager.getDefaultInstance().broadcast(envoieEventMonstre);
 		waitEvents();
+		
+		image = new ImageIcon(monster.getClass().getResource(monster.getChemin_sprite()));
+		t  = (float) (200.0/image.getIconHeight());
+		image2 = image.getImage().getScaledInstance(Math.round(image.getIconWidth()*t), Math.round(image.getIconHeight()*t), Image.SCALE_DEFAULT);
+		image.setImage(image2);
+		image_monster.setIcon(image);
+		image_monster.setSize(image.getIconWidth(), image.getIconHeight());		
+		
+		image_monster.setAlignmentY(background.getWidth()-image_monster.getWidth());
+		image_monster.setBounds(background.getWidth()-image.getIconWidth()-10, background.getHeight()-image.getIconHeight(), image.getIconWidth(), image.getIconHeight());
+		
+		vieMonster.setMaximum(monster.getLife());
+		vieMonster.setValue(monster.getLife());
+		image_monster.invalidate();
+				
 	}
 	
 	public void partieFinie(){

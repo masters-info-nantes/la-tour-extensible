@@ -36,16 +36,31 @@ public abstract class Action extends AbstractAction{
 	}
 	
 	public void doAction(AbstractCharacter c, AbstractMonster m) {
+		
+		int defTemp = 0;
+
 		if (this.getType()==TypeAction.Attack) {
 			System.out.println("Bim! Attaque du monstre");
 			int attack = this.getValue() + c.getJob().getForce() + c.getRace().getForce();
-			m.setLife(m.getLife() - attack);
+			m.setLife((m.getLife() + m.getDefence()) - attack);
 		}
 		else {
 			System.out.println("Oulala! Je me protège");
-			int def =  this.getValue() + c.getDefence() + c.getJob().getDefence() + c.getRace().getDefence();
-			c.setDefence(def);
+			defTemp =  this.getValue();
+			c.setDefence(c.getDefence() + defTemp);
 		}
+		
+		if(m.getLife()>0){
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			m.getIa().doAction(c, m);
+		}
+		c.setDefence(c.getDefence() - defTemp);
 	}
 	
 	// A garder à la fin

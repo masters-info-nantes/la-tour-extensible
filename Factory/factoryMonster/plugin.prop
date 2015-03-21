@@ -1,4 +1,0 @@
-Name = Monster
-PackageName = factoryMonster
-MainClassName = Main
-Service = Monsters

@@ -1,4 +1,0 @@
-Name = Job
-PackageName = factoryJob
-MainClassName = Main
-Service = Jobs
