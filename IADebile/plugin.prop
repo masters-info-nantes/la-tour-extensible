@@ -1,0 +1,4 @@
+Name = IA debile
+PackageName = IA
+MainClassName = Main
+Service = IA
