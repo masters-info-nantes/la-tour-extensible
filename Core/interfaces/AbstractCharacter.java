@@ -11,7 +11,20 @@ public abstract class AbstractCharacter {
 	protected String chemin_sprite;
 	protected AbstractJob job;
 	protected AbstractRace race;
-
+	
+	public final static String waitFromCore = "core.application.CREER_CHARACTER_CREATED";
+	public final static String sendFromCore = "core.application.CREER_CHARACTER";
+	
+	public AbstractCharacter(String sprite, String name, int force, int defence, int life) {
+		super();
+		this.name = name;
+		this.force = force;
+		this.defence = defence;
+		this.life = life;
+		this.chemin_sprite = sprite;
+	}
+	
+	abstract public AbstractCharacter copie();
 
 	public String getChemin_sprite() {
 		return chemin_sprite;
@@ -37,17 +50,6 @@ public abstract class AbstractCharacter {
 		this.race = race;
 	}
 
-	public final static String waitFromCore = "core.application.CREER_CHARACTER_CREATED";
-	public final static String sendFromCore = "core.application.CREER_CHARACTER";
-	
-	public AbstractCharacter(String sprite, String name, int force, int defence, int life) {
-		super();
-		this.name = name;
-		this.force = force;
-		this.defence = defence;
-		this.life = life;
-		this.chemin_sprite = sprite;
-	}
 
 	public String getName() {
 		return name;

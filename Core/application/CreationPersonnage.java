@@ -259,7 +259,7 @@ public class CreationPersonnage extends JFrame implements ActionListener, IEvent
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getActionCommand().equals("Valider")){
-			AbstractCharacter monCharacter = mesCharacter.get(listePersonnage.getSelectedIndex());
+			AbstractCharacter monCharacter = mesCharacter.get(listePersonnage.getSelectedIndex()).copie();
 			monCharacter.setRace(mesRaces.get(liste_race.getSelectedIndex()));
 			monCharacter.setJob(mesJob.get(liste_job.getSelectedIndex()));
 			new Salle(this, monCharacter, pluginMonster, pluginAction, mesDifficultees.get(listeDifficultees.getSelectedIndex()));

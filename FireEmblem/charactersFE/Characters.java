@@ -10,4 +10,8 @@ public class Characters extends AbstractCharacter{
 		// TODO Auto-generated constructor stub
 	}
 
+	public AbstractCharacter copie() {
+		// TODO Auto-generated method stub
+		return new Characters(this.chemin_sprite, this.name, this.force, this.defence, this.life);
+	}
 }
