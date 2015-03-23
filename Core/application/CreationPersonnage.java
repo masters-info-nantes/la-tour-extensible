@@ -138,14 +138,14 @@ public class CreationPersonnage extends JFrame implements ActionListener, IEvent
 		 * Image du personnage
 		 */
 		ImageIcon image = new ImageIcon(this.mesCharacter.get(0).getClass().getResource(this.mesCharacter.get(0).getChemin_sprite()));
-		float ratio  = (float) (150.0/image.getIconWidth());
+		float ratio  = (float) (150.0/image.getIconHeight());
 		Image image2 = image.getImage().getScaledInstance(Math.round(image.getIconWidth()*ratio), Math.round(image.getIconHeight()*ratio), Image.SCALE_DEFAULT);
 		image.setImage(image2);
 		image_character = new JLabel();
 
 		image_character.setIcon(image);
 		this.add(image_character);
-		image_character.setBounds(0, 0, image.getIconWidth(), image.getIconWidth());
+		image_character.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());
 		
 		
 		/*
@@ -303,7 +303,7 @@ public class CreationPersonnage extends JFrame implements ActionListener, IEvent
 		if(source == listePersonnage){
 			
 			ImageIcon image = new ImageIcon(this.mesCharacter.get(this.listePersonnage.getSelectedIndex()).getClass().getResource(this.mesCharacter.get(this.listePersonnage.getSelectedIndex()).getChemin_sprite()));
-			float t  = (float) (150.0/image.getIconWidth());
+			float t  = (float) (150.0/image.getIconHeight());
 			Image image2 = image.getImage().getScaledInstance(Math.round(image.getIconWidth()*t), Math.round(image.getIconHeight()*t), Image.SCALE_DEFAULT);
 			image.setImage(image2);
 			

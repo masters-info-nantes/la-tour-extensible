@@ -1,0 +1,4 @@
+Name = Fire emblem
+PackageName = charactersFE
+MainClassName = Main
+Service = Characters

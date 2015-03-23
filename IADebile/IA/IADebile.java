@@ -9,6 +9,7 @@ public class IADebile extends AbstractIAMonster{
 
 	@Override
 	public void doAction(AbstractCharacter character, AbstractMonster monstre) {
+		System.out.println("AHAHAHAH Je suis un monstre et j'attaque comme un debile !!!");
 		int degat = character.getDefence() + character.getRace().getDefence() + character.getJob().getDefence() - (monstre.getForce() + 10);
 		if(degat<character.getRace().getLife()){
 			character.getRace().setLife(character.getRace().getLife() - degat);

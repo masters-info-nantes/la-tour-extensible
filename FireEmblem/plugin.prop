@@ -1,0 +1,4 @@
+Name = Armee de Begnion
+PackageName = begnion
+MainClassName = Main
+Service = Monsters

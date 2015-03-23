@@ -1,0 +1,4 @@
+Name = IA moyenne
+PackageName = IA
+MainClassName = Main
+Service = IA

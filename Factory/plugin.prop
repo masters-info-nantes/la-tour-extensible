@@ -1,4 +1,0 @@
-Name = Pokemon
-PackageName = factoryPokemon
-MainClassName = Main
-Service = Characters

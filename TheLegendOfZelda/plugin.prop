@@ -1,0 +1,4 @@
+Name = Race The legend of Zelda
+PackageName = factoryRaceZelda
+MainClassName = Main
+Service = Races

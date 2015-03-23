@@ -1,0 +1,4 @@
+Name = Job Fire Emblem
+PackageName = jobFE
+MainClassName = Main
+Service = Jobs

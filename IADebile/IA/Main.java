@@ -1,6 +1,5 @@
 package IA;
 
-import interfaces.AbstractAction;
 import interfaces.AbstractIAMonster;
 import interfaces.AbstractMonster;
 import latourextensible.platform.RunnablePlugin;
@@ -17,8 +16,6 @@ public class Main extends RunnablePlugin implements IEventListener {
 			AbstractIAMonster ia = new IADebile();
 			envoieIA.addExtra("IA", ia);
 			EventManager.getDefaultInstance().broadcast(envoieIA);
-
-		
 		}
 	}
 

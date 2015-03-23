@@ -160,8 +160,8 @@ public class Salle extends JFrame implements ActionListener , IEventListener{
 		vieMonster.setBounds(background.getWidth()-210, background.getHeight()+10, 200, 20);
 		
 		vieCharacter = new JProgressBar();
-		vieCharacter.setMaximum(character.getLife());
-		vieCharacter.setValue(character.getLife());
+		vieCharacter.setMaximum(character.getLife() + character.getRace().getLife() + character.getJob().getLife());
+		vieCharacter.setValue(character.getLife() + character.getRace().getLife() + character.getJob().getLife());
 		vieCharacter.setBounds(10, background.getHeight()+10, 200, 20);
 		
 		this.add(vieMonster);
@@ -193,11 +193,11 @@ public class Salle extends JFrame implements ActionListener , IEventListener{
 		if(this.monster.getLife()<0){
 			changerSalle();
 		}
-		if(this.character.getLife()<0){
+		if(this.character.getLife() + character.getRace().getLife() + character.getJob().getLife()<=0){
 			partieFinie();			
 		}
 		
-
+		vieCharacter.setValue(character.getLife() + character.getRace().getLife() + character.getJob().getLife());
 		
 	}
 	

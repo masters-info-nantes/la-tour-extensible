@@ -1,0 +1,4 @@
+Name = IA avancee
+PackageName = IA
+MainClassName = Main
+Service = IA

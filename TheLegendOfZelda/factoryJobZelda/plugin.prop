@@ -1,0 +1,4 @@
+Name = Job The legend of Zelda
+PackageName = factoryJobZelda
+MainClassName = Main
+Service = Jobs

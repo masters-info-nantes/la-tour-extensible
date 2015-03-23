@@ -1,0 +1,4 @@
+Name = Ennemis the legend of Zelda
+PackageName = factoryEnnemis
+MainClassName = Main
+Service = Monsters

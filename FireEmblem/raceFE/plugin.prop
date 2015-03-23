@@ -1,0 +1,4 @@
+Name = Race fire emblem
+PackageName = raceFE
+MainClassName = Main
+Service = Races

@@ -1,0 +1,4 @@
+Name = Hero
+PackageName = factoryHero
+MainClassName = Main
+Service = Characters
