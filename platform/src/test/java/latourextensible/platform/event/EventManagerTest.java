@@ -115,7 +115,7 @@ public class EventManagerTest {
 		}
 
 		public void run() {
-			System.out.println("Test1.run");
+			//~ System.out.println("Test1.run");
 		}
 		
 		public void onEvent(Event event) {
@@ -142,7 +142,7 @@ public class EventManagerTest {
 		}
 
 		public void run() {
-			System.out.println("Test2.run");
+			//~ System.out.println("Test2.run");
 		}
 
 		public void onEvent(Event event) {

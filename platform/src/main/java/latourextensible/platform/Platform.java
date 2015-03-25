@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 
 import latourextensible.platform.event.*;
+import latourextensible.platform.storage.*;
 
 public class Platform {
 	
@@ -11,6 +12,8 @@ public class Platform {
 	
 	public static void main(String[] args) throws Exception {
 		System.out.println("Plateform start");
+		
+		PersistentStorageManager.setDefaultDir(System.getProperty("user.home")+"/.latourextensible/");
 		
 		PluginManager pluginMgr = PluginManager.getDefaultInstance();
 		File defaultPluginDir = new File("./plugins");

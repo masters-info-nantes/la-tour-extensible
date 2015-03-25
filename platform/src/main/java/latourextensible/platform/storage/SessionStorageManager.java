@@ -3,7 +3,7 @@ package latourextensible.platform.storage;
 import java.lang.*;
 import java.util.HashMap;
 
-public class SessionStorageManager {
+public class SessionStorageManager implements IStorageManager{
 	
 	private static SessionStorageManager instance = null;
 	private HashMap<String,Object> content;
@@ -57,9 +57,6 @@ public class SessionStorageManager {
 	}
 	
 	public boolean put(String key, Object o) {
-		if(this.content.get(key) != null) {
-			return false;
-		}
 		this.content.put(key,o);
 		return true;
 	}
@@ -80,4 +77,7 @@ public class SessionStorageManager {
 		return this.put(key,o);
 	}
 	
+	public boolean remove(String key) {
+		return this.content.remove(key) != null;
+	}
 }

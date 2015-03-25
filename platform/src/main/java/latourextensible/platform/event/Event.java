@@ -66,6 +66,7 @@ public class Event {
 	
 	/** Gets extra {@code int} data
 	 * @param key The key of wanted extra.
+	 * @param defaultValue The value that will be return if the value corresponding to key can't be return.
 	 * @return The data corresponding to the passing key, {@code defaultValue} otherwise.
 	 */
 	public int getExtraInt(String key, int defaultValue) {
@@ -79,6 +80,7 @@ public class Event {
 	
 	/** Gets extra {@code float} data
 	 * @param key The key of wanted extra.
+	 * @param defaultValue The value that will be return if the value corresponding to key can't be return.
 	 * @return The data corresponding to the passing key, {@code defaultValue} otherwise.
 	 */
 	public float getExtraFloat(String key, float defaultValue) {

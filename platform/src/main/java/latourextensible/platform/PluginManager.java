@@ -33,6 +33,9 @@ public class PluginManager extends URLClassLoader {
 		plugins = new HashMap<String,PluginProperty>();
 	}
 
+	/** Gets the default instance of {@code PluginManager}
+	 * @return The default instance of {@code PluginManager}
+	 */
 	public static PluginManager getDefaultInstance() {
 		if(instance == null)
 			instance = new PluginManager();
@@ -84,7 +87,6 @@ public class PluginManager extends URLClassLoader {
 	
 	public boolean addPlugin(URL pluginUrl) throws InvalidPluginPropertiesException, IOException {
 		this.addURL(pluginUrl);
-		System.out.println("addPlugin "+pluginUrl);
 		ZipFile jar = new ZipFile(pluginUrl.getFile());
 		ZipEntry jarProp = jar.getEntry("plugin.prop");
 		InputStream fileStream = jar.getInputStream(jarProp);
@@ -129,16 +131,6 @@ public class PluginManager extends URLClassLoader {
 			throw new InvalidPluginPropertiesException("\"MainClassName\" property is needed in "+pluginUrl);
 		}
 		
-		prop = props.get("Options");
-		if(prop != null) {
-			String[] optionsList = ((String)prop).split(" ");
-			for(String opt : optionsList) {
-				if(!opt.equals("")) {
-					newPlugin.addOption(opt);
-				}
-			}
-		}
-		
 		prop = props.get("Dependancies");
 		if(prop != null) {
 			String[] depsList = ((String)prop).split(" ");
@@ -163,7 +155,6 @@ public class PluginManager extends URLClassLoader {
 			});
 		URL jarUrl;
 		for(String jar : jarList) {
-			System.out.println("file://"+path+"/"+jar);
 			jarUrl = new URL("file://"+path+"/"+jar);
 			if(this.plugins.containsKey(jarUrl.toString())) {
 				continue;

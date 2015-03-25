@@ -7,10 +7,10 @@ import java.util.HashMap;
 
 /** {@code EventManager} will manage distribution of {@code Event} signal.
  *
- * Send an {@code Event} will send it to only one object, while broadcast an {@see latourextensible.platform.Event} will send it to all object registered to receive this kind of {@code Event}.
+ * Send an {@code Event} will send it to only one object, while broadcast an {@link latourextensible.platform.event.Event} will send it to all object registered to receive this kind of {@code Event}.
  * It's not necessary to register an object to send an {@code Event} to it. It's necessary to register an object only for broadcast {@code Event}
  *
- * Note: "listener" is an object instantiate from class which implement the {@see latourextensible.platform.IEventListener} interface.
+ * Note: "listener" is an object instantiate from class which implement the {@link latourextensible.platform.event.IEventListener} interface.
  */
 public class EventManager {
 	/** Constant event action name for broadcast event
