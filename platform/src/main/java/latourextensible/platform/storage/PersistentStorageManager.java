@@ -33,10 +33,16 @@ public class PersistentStorageManager implements IStorageManager {
 		this.content.load(new FileInputStream(this.contentFile));
 	}
 	
+	/** Sets the default directory for the persistance storage location
+	 * @param dir The directory where datas will be stored
+	 */
 	public static void setDefaultDir(String dir) {
 		defaultDir = dir;
 	}
 	
+	/** Gets the default instance of {@code PersistentStorageManager}
+	 * @return The default instance of {@code PersistentStorageManager}
+	 */
 	public static PersistentStorageManager getDefaultInstance() throws DefaultDirNotDeclareException, IOException{
 		if(instance == null) {
 			instance = new PersistentStorageManager();
@@ -45,6 +51,10 @@ public class PersistentStorageManager implements IStorageManager {
 		return instance;
 	}
 	
+	/** Gets {@code Boolean} data
+	 * @param key The key of wanted extra.
+	 * @return The data corresponding to the passing key, {@code null} otherwise.
+	 */
 	public Boolean getBoolean(String key) {
 		String strVal = this.content.getProperty(key);
 		if(strVal != null) {
@@ -54,6 +64,11 @@ public class PersistentStorageManager implements IStorageManager {
 		}
 	}
 
+	/** Gets {@code int} data
+	 * @param key The key of wanted data.
+	 * @param defaultValue The value that will be return if the value corresponding to key can't be return.
+	 * @return The data corresponding to the passing key, {@code defaultValue} otherwise.
+	 */
 	public int getInt(String key, int defaultValue) {
 		String strVal = this.content.getProperty(key);
 		try {
@@ -64,6 +79,11 @@ public class PersistentStorageManager implements IStorageManager {
 		}
 	}
 
+	/** Gets {@code float} data
+	 * @param key The key of wanted data.
+	 * @param defaultValue The value that will be return if the value corresponding to key can't be return.
+	 * @return The data corresponding to the passing key, {@code defaultValue} otherwise.
+	 */
 	public float getFloat(String key, float defaultValue) {
 		String strVal = this.content.getProperty(key);
 		if(strVal != null) {
@@ -78,23 +98,47 @@ public class PersistentStorageManager implements IStorageManager {
 		}
 	}
 
+	/** Gets {@code String} data
+	 * @param key The key of wanted extra.
+	 * @return The data corresponding to the passing key, {@code null} otherwise.
+	 */
 	public String getString(String key) {
 		return this.content.getProperty(key);
 	}
 
 
+	/** Sets {@code String} data
+	 * @param key The key wanted for the data.
+	 * @param o The data you wanted to store
+	 * @return {@code true} if value was stored, {@code false} otherwise.
+	 */
 	public boolean putBoolean(String key, boolean o) {
 		return putString(key,Boolean.toString(o));
 	}
 
+	/** Sets {@code int} data
+	 * @param key The key wanted for the data.
+	 * @param o The data you wanted to store
+	 * @return {@code true} if value was stored, {@code false} otherwise.
+	 */
 	public boolean putInt(String key, int o) {
 		return putString(key,Integer.toString(o));
 	}
 
+	/** Sets {@code float} data
+	 * @param key The key wanted for the data.
+	 * @param o The data you wanted to store
+	 * @return {@code true} if value was stored, {@code false} otherwise.
+	 */
 	public boolean putFloat(String key, float o) {
 		return putString(key,Float.toString(o));
 	}
 
+	/** Sets {@code String} data
+	 * @param key The key wanted for the data.
+	 * @param o The data you wanted to store
+	 * @return {@code true} if value was stored, {@code false} otherwise.
+	 */
 	public boolean putString(String key, String o) {
 		this.content.put(key,o);
 		try {
@@ -107,6 +151,10 @@ public class PersistentStorageManager implements IStorageManager {
 		}
 	}
 	
+	/** Removes key value couple
+	 * @param key The key of the data you wanted to remove.
+	 * @return {@code true} if value was removed, {@code false} otherwise.
+	 */
 	public boolean remove(String key) {
 		if(this.content.remove(key) != null) {
 			try {

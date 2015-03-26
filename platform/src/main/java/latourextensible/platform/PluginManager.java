@@ -42,6 +42,10 @@ public class PluginManager extends URLClassLoader {
 		return PluginManager.instance;
 	}
 	
+	/** Gets all {@code PluginProperty} of plugins which could be loaded
+	 * @param pluginService The service name of plugins you wanted
+	 * @return The list of all {@code PluginProperty} of plugins which could be loaded
+	 */
 	public List<PluginProperty> getLoadablePlugins(String pluginService) {
 		List<PluginProperty> ret = new ArrayList<PluginProperty>();
 		
@@ -54,6 +58,10 @@ public class PluginManager extends URLClassLoader {
 		return ret;
 	}
 	
+	/** Runs a plugin with corresponding {@code PluginProperty}
+	 * @param p The {@code PluginProperty} of the plugin you wanted to load
+	 * @return {@code true} if plugin is loaded and run, {@code false} otherwise.
+	 */
 	public boolean runPlugin(PluginProperty p) throws ClassNotFoundException, IllegalAccessException, InstantiationException, PluginAlreadyInstantiateException {
 		if(p.isInstanciate()) {
 			throw new PluginAlreadyInstantiateException();
@@ -75,6 +83,11 @@ public class PluginManager extends URLClassLoader {
 		return true;
 	}
 	
+	
+	/** Stops a plugin with corresponding {@code PluginProperty}
+	 * @param p The {@code PluginProperty} of the plugin you wanted to stop
+	 * @return {@code true} if plugin is stoped, {@code false} otherwise.
+	 */
 	public boolean stopPlugin(PluginProperty p) {
 		if(!p.isInstanciate()) {
 			return false;
@@ -85,6 +98,10 @@ public class PluginManager extends URLClassLoader {
 		return !p.isInstanciate();
 	}
 	
+	/** Adds a plugin to plugins list
+	 * @param pluginUrl The {@link java.net.URL} of the plugin you wanted to add
+	 * @return {@code true} if plugin is added, {@code false} otherwise.
+	 */
 	public boolean addPlugin(URL pluginUrl) throws InvalidPluginPropertiesException, IOException {
 		this.addURL(pluginUrl);
 		ZipFile jar = new ZipFile(pluginUrl.getFile());
@@ -144,6 +161,9 @@ public class PluginManager extends URLClassLoader {
 		return true;
 	}
 	
+	/** Adds a path containing plugins to plugins list
+	 * @param jarPath the path of the directory of plugins you wanted to add
+	 */
 	public void addPluginsPath(String jarPath) throws InvalidPluginPropertiesException, Exception {
 		String path = (new File(jarPath)).getCanonicalPath();
 		ArrayList<PluginProperty> pluginsList = new ArrayList<PluginProperty>();

@@ -51,14 +51,14 @@ public class Event {
 		
 	}
 	
-	/** Gets extra {@code String} data
+	/** Gets extra {@code Boolean} data
 	 * @param key The key of wanted extra.
 	 * @return The data corresponding to the passing key, {@code null} otherwise.
 	 */
-	public String getExtraString(String key) {
+	public Boolean getExtraBoolean(String key) {
 		Object o = this.getExtra(key);
-		if(o instanceof String) {
-			return (String)o;
+		if(o instanceof Boolean) {
+			return ((Boolean)o);
 		} else {
 			return null;
 		}
@@ -92,18 +92,19 @@ public class Event {
 		}
 	}
 	
-	/** Gets extra {@code boolean} data
+	/** Gets extra {@code String} data
 	 * @param key The key of wanted extra.
 	 * @return The data corresponding to the passing key, {@code null} otherwise.
 	 */
-	public Boolean getExtraBoolean(String key) {
+	public String getExtraString(String key) {
 		Object o = this.getExtra(key);
-		if(o instanceof Boolean) {
-			return ((Boolean)o);
+		if(o instanceof String) {
+			return (String)o;
 		} else {
 			return null;
 		}
 	}
+	
 	
 	/** Adds extra {@code Object} data
 	 * @param key The key wanted for the extra.
@@ -113,12 +114,12 @@ public class Event {
 		this.extra.put(key,value);
 	}
 	
-	/** Adds extra {@code String} data
+	/** Adds extra {@code boolean} data
 	 * @param key The key wanted for the extra.
 	 * @param value The value you wanted to store
 	 */
-	public void addExtraString(String key, String value) {
-		this.extra.put(key,value);
+	public void addExtraBoolean(String key, boolean value) {
+		this.extra.put(key,new Boolean(value));
 	}
 	
 	/** Adds extra {@code int} data
@@ -137,13 +138,14 @@ public class Event {
 		this.extra.put(key,new Float(value));
 	}
 	
-	/** Adds extra {@code boolean} data
+	/** Adds extra {@code String} data
 	 * @param key The key wanted for the extra.
 	 * @param value The value you wanted to store
 	 */
-	public void addExtraBoolean(String key, boolean value) {
-		this.extra.put(key,new Boolean(value));
+	public void addExtraString(String key, String value) {
+		this.extra.put(key,value);
 	}
+	
 	
 	/** Returns whether this {@code Event} contains extra.
 	 * @return {@code true} if this Event has no extra, {@code false} otherwise.
