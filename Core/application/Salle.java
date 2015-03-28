@@ -203,6 +203,9 @@ public class Salle extends JFrame implements ActionListener , IEventListener{
 	
 	public void changerSalle(){
 		//TODO: demander a la plateforme un monstre
+		Event changementSalle = new Event(AbstractMonster.waitLVLUpFromCore);
+		EventManager.getDefaultInstance().broadcast(changementSalle);
+		
 		Random r = new Random();
 		int rand = Math.abs(r.nextInt()%19);
 		ImageIcon image = new ImageIcon(this.getClass().getResource("/images/fond"+rand+".png"));
@@ -218,6 +221,7 @@ public class Salle extends JFrame implements ActionListener , IEventListener{
 		this.monster = null;
 		Event envoieEventMonstre = new Event(AbstractMonster.sendFromCore);
 		envoieEventMonstre.addExtra("IA", difficultee);
+		System.out.println("aaaaaaaaaaaaaaaaaaaa            "+difficultee.getName());
 
 		EventManager.getDefaultInstance().broadcast(envoieEventMonstre);
 		waitEvents();

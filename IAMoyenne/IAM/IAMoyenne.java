@@ -1,4 +1,4 @@
-package IA;
+package IAM;
 
 import java.util.Random;
 
@@ -32,28 +32,30 @@ public class IAMoyenne extends AbstractIAMonster{
 	
 	public void attaquer(AbstractMonster monstre, AbstractCharacter character){
 		int degat = character.getDefence() + character.getRace().getDefence() + character.getJob().getDefence() - (monstre.getForce() + 10) + 5;
-		if(degat<character.getRace().getLife()){
-			character.getRace().setLife(character.getRace().getLife() - degat);
-		}
-		else{
-			degat -= character.getRace().getLife();
-			character.getRace().setLife(0);
-		}
-		
-		if(degat<character.getJob().getLife() && degat >0){
-			character.getJob().setLife(character.getJob().getLife() - degat);
-		}
-		else if(degat >0){
-			degat -= character.getJob().getLife();
-			character.getJob().setLife(0);
-		}
-		
-		if(degat<character.getLife() && degat >0){
-			character.setLife(character.getLife() - degat);
-		}
-		else if(degat >0){
-			degat -= character.getLife();
-			character.setLife(0);
+		if(degat>0){
+			if(degat<character.getRace().getLife()){
+				character.getRace().setLife(character.getRace().getLife() - degat);
+			}
+			else{
+				degat -= character.getRace().getLife();
+				character.getRace().setLife(0);
+			}
+			
+			if(degat<character.getJob().getLife() && degat >0){
+				character.getJob().setLife(character.getJob().getLife() - degat);
+			}
+			else if(degat >0){
+				degat -= character.getJob().getLife();
+				character.getJob().setLife(0);
+			}
+			
+			if(degat<character.getLife() && degat >0){
+				character.setLife(character.getLife() - degat);
+			}
+			else if(degat >0){
+				degat -= character.getLife();
+				character.setLife(0);
+			}
 		}
 	}
 

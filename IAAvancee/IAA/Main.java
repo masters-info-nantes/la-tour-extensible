@@ -1,4 +1,4 @@
-package IA;
+package IAA;
 
 import interfaces.AbstractIAMonster;
 import interfaces.AbstractMonster;

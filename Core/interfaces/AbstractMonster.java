@@ -17,6 +17,8 @@ public abstract class AbstractMonster {
 	public final static String waitFromMonster = "monster.CREER_DIFFICULTEE_CREATED";
 	public final static String sendFromMonster = "monster.CREER_DIFFICULTEE";
 	
+	public final static String waitLVLUpFromCore = "core.application.LVL_UP";	
+	
 	public AbstractMonster(String nom, String sprite, int force, int defence, int life) {
 		super();
 		this.force = force;

@@ -54,12 +54,19 @@ public class Main extends RunnablePlugin implements IEventListener{
 			monsterF.difficultee = (AbstractIAMonster) event.getExtra("IA");
 			System.out.println("je recois ma diff:    "+monsterF.difficultee);
 		}
+		
+		else if(event.getAction() == AbstractMonster.waitLVLUpFromCore){
+			this.monsterF.setNumSalle(this.monsterF.getNumSalle() + 1);
+			
+			if(this.monsterF.getNumSalle()%2 == 0){
+				this.monsterF.setCoef(this.monsterF.getCoef() + 1);
+			}
+		}
 	}
 	
 	private void waitEvents(){
 		// TODO Auto-generated method stub
 		int nb_secondes = 0;
-		System.out.println("j'attend:    "+monsterF.difficultee);
 
 		while(monsterF.difficultee == null && nb_secondes<5){
 			try {
