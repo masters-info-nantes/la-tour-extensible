@@ -30,7 +30,7 @@ Pour les interfaces:
 POUR SE METTRE D'ACCORD
 
 
-- La plateforme charge un core par defaut (celui qui contient la fentre de choix de plugins): comment le reconnaitre ? son nom ? le fichier de conf ?
+- La plateforme charge un core par defaut (celui qui contient la fentre de choix de plugins) comment le reconnaitre ? son nom ? le fichier de conf ?
 
 - Tout est géré grace a des event, on fait une requete a la plateforme qui fera en sorte de nous donner une réponse
 
